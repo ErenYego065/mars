@@ -1,0 +1,31 @@
+<template name="caseComments">
+ <div class="tab-pane active" id="caseComments">
+  <div class="tab-content">     
+   <table width="100%">
+    <tr align="right">
+     <button class="btn btn-plain btn-xs addNote" type="button"><i class="fa fa-plus"></i> Add </button>
+    </tr>
+   </table>
+
+   {{#each comments}}   
+     <div class="feed-activity-list">
+      <div class="feed-element">
+       <div class="media-body">
+        <div id={{id}} class="well">
+         {{text}}
+        </div>
+        <div align="left">
+          <small class="text-muted"> 
+           <a class='editNote' type="text" data-id={{id}}>Edit</a> &#9679;
+           <a class='deleteNote' type="text" data-id={{id}}>Delete</a> &#9679;
+           {{dateConvert updated_at 'Do MMMM YYYY, HH:mm:ss'}}
+          </small>
+        </div>
+       </div>
+      </div>
+     </div>
+    {{/each}}
+  
+  </div>
+ </div> 
+</template>

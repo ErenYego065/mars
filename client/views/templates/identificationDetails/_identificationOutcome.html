@@ -1,0 +1,70 @@
+<template name="identificationOutcome">
+ <div class="row">
+  {{#with identificationDetails.face_analysis}}
+  {{> identificationOutcomeBreakdown title='Selfie Analysis' age=selfie_image.age gender=selfie_image.gender
+  blur_level=selfie_image.blur_level noise_level=selfie_image.noise_level exposure_level=selfie_image.exposure_level
+  extractedImages=../selfieImages spinner=2}}
+
+  {{> identificationOutcomeBreakdown title='ID Document Analysis' age=identity_document.age
+  gender=identity_document.gender blur_level=identity_document.blur_level noise_level=identity_document.noise_level
+  exposure_level=identity_document.exposure_level
+  extractedImages=../idImage spinner=3}}
+  {{/with}}
+ </div>
+</template>
+
+<template name="identificationOutcomeBreakdown">
+ <div class="col-sm-6">
+  <div class="ibox float-e-margins">
+   <div class="ibox-dashboard">
+    <h3 class="text-center">{{title}}</h3>
+    <div class="row">
+     <div class="col-sm-12">
+      <div class="carouselEncodedImages">
+       <div class="ibox float-e-margins" id="ibox{{spinner}}">
+        <div class="ibox-content">
+         <div class="sk-spinner sk-spinner-double-bounce">
+          <div class="sk-double-bounce1 "></div>
+          <div class="sk-double-bounce2"></div>
+         </div>
+         {{#if extractedImages}}
+         <div align="center">
+          <img class="img-rounded" style="max-width:100%!important;height:220px!important;" src="data:{{extractedImages.content_type}};base64,{{extractedImages.content}}">
+         </div>
+         {{else}}
+         <div>
+          <img src="/images/brokenImage.png" class="img-responsive img-rounded">
+         </div>
+         {{/if}}
+        </div>
+       </div>
+      </div>
+      <table style="vertical-align:top;width:100%;">
+       <tr>
+        <td>Age</td>
+        <td style="text-align:right;"><strong>{{age}}</strong></td>
+       </tr>
+       <tr>
+        <td>Gender</td>
+        <td style="text-align:right;"><strong>{{toTitleCase gender}}</strong></td>
+       </tr>
+       <tr>
+        <td>Blur Level</td>
+        <td style="text-align:right;"><strong>{{toTitleCase blur_level}}</strong></td>
+       </tr>
+       <tr>
+        <td>Noise Level</td>
+        <td style="text-align:right;"><strong>{{toTitleCase noise_level}}</strong></td>
+       </tr>
+       <tr>
+        <td>Exposure Level</td>
+        <td style="text-align:right;"><strong>{{toTitleCase exposure_level}}</strong></td>
+       </tr>
+      </table>
+
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</template>

@@ -1,0 +1,32 @@
+<template name="matchOccupationTab">
+ <div id="occupationsTab" class="tab-pane">
+  <br>
+  {{#if occupations}}  
+   <table class="table table-striped">
+    <thead>
+     <tr>
+      <th>Title</th>
+      <th>Category</th>
+      <th>Type</th>      
+      <th>From Date</th>
+      <th>To Date</th>      
+     </tr>
+    </thead>
+    <tbody>
+     {{#each occupations}}
+      <tr>
+       {{#if name}}<td>{{name}}</td>{{else}}<td align="center">-</td>{{/if}}
+       {{#if category}}<td>{{getTextFromValue category}}</td>{{else}}<td align="center">-</td>{{/if}}
+       {{#if type}}<td>{{getTextFromValue type}}</td>{{else}}<td align="center">-</td>{{/if}}       
+       {{#if from_date}}<td>{{dateConvert from_date 'Do MMM YYYY'}}</td>{{else}}<td align="center">-</td>{{/if}}
+       {{#if to_date}}<td>{{dateConvert to_date 'Do MMM YYYY'}}</td>{{else}}<td align="center">-</td>{{/if}}       
+      </tr>
+     {{/each}}
+    </tbody>
+   </table>   
+  {{else}}
+   No occupation available.
+  {{/if}}
+  
+ </div>  
+</template>

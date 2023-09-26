@@ -1,0 +1,166 @@
+<template name="admin">
+ {{> pageHeading title='Administration' category='User Management' parent='Administration' }}    
+ <br>
+ 
+ <div class="row">
+  <div class="col-md-12">
+   <div class="ibox float-e-margins">
+    <div class="ibox" id="ibox1">
+     <div class="ibox-content">
+
+      <div class="sk-spinner sk-spinner-double-bounce">
+       <div class="sk-double-bounce1 "></div>
+       <div class="sk-double-bounce2"></div>
+      </div>
+
+      {{#if isInRole 'admin, audit'}}
+      {{#if isInRole 'admin'}}
+      <table class="table" style="table-layout: fixed; width: 100%">
+       <thead>
+        <tr>
+         <th>Company Name</th>
+         <th>Email</th>
+         <th>Contact Name</th>
+         <th>API Client ID</th>         
+         <th></th>           
+        </tr>
+       </thead>
+       <tbody>
+        <tr>
+         <td><input type="text" id="newCompanyName" placeholder="Company Name"></td>
+         <td><input type="text" id="newCompanyEmail" placeholder="Company Email"></td>           
+         <td></td>
+         <td></td>
+         <td><button class="createUser">Add to Web App</button></td>
+        </tr>
+        {{#if isTest}}
+         <tr>
+          <td><input type="text" id="foCompanyName" placeholder="Company Name"></td>
+          <td><input type="text" id="foCompanyEmail" placeholder="Company Email"></td>           
+          <td><input type="text" id="foContactName" placeholder="Contact Name"></td>
+          <td><input type="text" id="foApiClientId" placeholder="API Client ID"></td>         
+          <td><button class="fullOnboarding">Full Onboarding</button></td>
+         </tr>
+        {{/if}}
+       </tbody>
+      </table>
+      <br><br>
+      {{/if}}
+
+      <div class="tabs-container">
+       <ul class="nav nav-tabs">
+        <li class="active" style="margin-left:15px">
+         <a data-toggle="tab" href="#tab-1" style="font-weight: 500">Users</a>
+        </li>
+        <li style="margin-left:15px">
+         <a data-toggle="tab" href="#tab-2" style="font-weight: 500">Access Permissions</a>
+        </li>
+       </ul>
+       
+       <div class="tab-content">
+        <div id="tab-1" class="tab-pane active">
+         <div class="panel-body">
+          <table class="table" style="table-layout: fixed; width: 100%">
+           <thead>
+            <tr>
+             <th>User ID</th>
+             <th>Company Name</th>
+             <th>Username</th>           
+             {{#if isInRole 'admin'}}
+             <th>Authorization Header</th> 
+             {{/if}}
+             <th></th>     
+            </tr>
+           </thead>
+           <tbody>
+            {{#each profiles}}
+             {{#if editing}}
+              <tr>
+               <td>{{userId}}</td>
+               <td><input type="text" id="editCompanyName" value="{{companyName}}"></td>
+               <td>{{username}}</td>            
+               <td><textarea rows="6" cols="15" id="editApiAuthorizationHeader" value="{{decrypt apiAuthorizationHeader}}"></textarea></td>
+               <td>
+                <button class="saveItem">Save</button>
+                <button class="resetPassword">Reset Password</button>             
+                <button class="deleteItem" style="background-color: red;color:white">Delete</button>                                
+                <button class="cancelItem">Cancel</button>
+                {{#each errors}}<div>{{message}}</div>{{/each}}
+               </td>
+              </tr>
+             {{else}}
+              <tr>
+               <td><a href="/admin/{{userId}}/{{uriEncode apiAuthorizationHeader}}/{{previousDate}}/{{currentDate}}">{{userId}}</a></td>
+               <td>{{companyName}}</td>
+               <td>{{username}}</td>   
+               {{#if isInRole 'admin'}}
+               <td style="word-wrap: break-word">{{decrypt apiAuthorizationHeader}}</td>            
+               <td><button class="editItem">Edit</button></td>
+               {{/if}}
+              </tr>
+             {{/if}}
+            {{/each}}
+           </tbody>
+          </table>   
+         </div>
+        </div>
+
+        <div id="tab-2" class="tab-pane">
+         <div class="panel-body">
+          <table class="table" style="table-layout: fixed; width: 100%">
+           <thead>
+            <tr>
+             <th>User ID</th>
+             <th>Company Name</th>
+             <th>Role</th> 
+             <th></th>     
+            </tr>
+           </thead>
+           <tbody>
+            {{#each permissions}}
+             {{#if editing}}
+              <tr>
+               <td>{{_id}}</td>
+               <td>{{username}}</td>                           
+               <td>
+                <select class="edit-select" id="editRole">
+                 {{#each userRoles}}
+                  <option  value="{{this.value}}" {{isSelected this.value ../roles.[0]}}>{{this.text}}</option>
+                 {{/each}}
+                </select>
+               </td>
+               <td>
+                {{#if isInRole 'admin'}}
+                <button class="saveRole">Save</button>
+                <button class="cancelItem">Cancel</button>
+                {{#each errors}}<div>{{message}}</div>{{/each}}
+                {{/if}}
+               </td>
+              </tr>
+             {{else}}
+              <tr>
+               <td>{{_id}}</td>
+               <td>{{username}}</td>
+               <td>{{roles.[0]}}</td>
+               {{#if isInRole 'admin'}}
+               <td><button class="editItem">Edit</button></td>
+               {{/if}}
+              </tr>
+             {{/if}}
+            {{/each}}
+           </tbody>
+          </table>   
+         </div>
+        </div>
+
+       </div>
+      </div>
+      
+     {{/if}}
+
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</template>

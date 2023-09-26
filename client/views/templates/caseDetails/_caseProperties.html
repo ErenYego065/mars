@@ -1,0 +1,96 @@
+<template name="caseProperties">
+ {{#with caseDetails}}
+  <div class="row">
+   <div class="col-sm-12">
+    <dl class="dl-horizontal">
+              
+     <!--Title -->
+     <dt style="font-weight: normal">Title</dt>
+     <dd>
+     {{#if editingTitle}}
+       <td>
+       <select class="edit-select" id="newTitle" data-attribute="title">
+         {{#each titleOptions}}
+          <option  value="{{this.value}}" {{isSelected this.value ../title}}>{{this.text}}</option>
+         {{/each}}
+        </select>
+       </td>
+       <td>
+        <button id="saveTitle" class="btn btn-primary editable-button" type="button"><i class="fa fa-check"></i></button>
+        <button id="cancelChange" class="btn btn-default editable-button" type="button"><i class="fa fa-times"></i></button>
+       </td>
+       {{#if validationMessage}}
+        <span style="display:inline-block" class="validation">{{validationMessage}}</span>
+       {{/if}}
+     {{else}}
+      <td>
+       <label id="title" type="text" class="text-editable">
+        {{#if title}}
+         {{title}}
+        {{else}}
+         {{empty}}
+        {{/if}}
+       </label>
+      </td>
+     {{/if}}
+     </dd>
+
+     <dt style="font-weight: normal;padding-bottom:3px;">Related Customer</dt>
+     <dd>
+       <td>
+         <a href="/customers">{{entity_name}}</a>
+       </td>
+     </dd> 
+
+     <dt style="font-weight: normal">Status</dt>
+     <dd>
+      <td>
+       <label id="title" type="text" class="text-editable">
+        {{#if status}}{{getTextFromValue status}}{{else}}{{empty}}{{/if}}
+       </label>
+      </td>
+     </dd>
+
+     <dt style="font-weight: normal">Priority</dt>
+     <dd>
+      <td>
+       <label id="title" type="text">
+        {{#if priority}}
+         <span class="pull-right label label-{{toLowerCase priority}}">{{toTitleCase priority}}</span> 
+        {{else}}{{empty}}{{/if}}
+       </label>
+      </td>
+     </dd>
+
+     <dt style="font-weight: normal">Reviewer</dt>
+     <dd>
+      <td>
+       <label id="title" type="text" class="text-editable">
+        {{#if reviewer}}{{reviewer}}{{else}}{{empty}}{{/if}}
+       </label>
+      </td>
+     </dd>
+
+     <dt style="font-weight: normal">Assignee</dt>
+     <dd>
+      <td>
+       <label id="title" type="text" class="text-editable">
+        {{#if assignee}}{{assignee}}{{else}}{{empty}}{{/if}}
+       </label>
+      </td>
+     </dd>
+
+     <dt style="font-weight: normal">Summary</dt>
+     <dd>
+      <td>
+       <label id="title" type="text" class="text-editable">
+        {{#if summary}}{{summary}}{{else}}{{empty}}{{/if}}
+       </label>
+      </td>
+     </dd>
+   
+    </dl>
+   </div>
+  </div>
+ {{/with}}
+</template>

@@ -1,0 +1,300 @@
+<template name="profileDetails">
+ {{#with matchProfile}}
+  <dl class="dl-horizontal">
+    <dt style="font-weight: normal">Match Type(s)</dt>
+    <dd>
+     <td>
+      {{#each match_type}}
+       <label class="label label-default">{{getTextFromValue this}}</label>
+       <br style="margin-top: 5px;display: block;content:'';line-height:5px">
+      {{/each}}
+     </td>
+    </dd>
+    <br>
+
+    <dt style="font-weight: normal">Entity Type</dt>
+    <dd>
+     <td>
+       <label>{{toTitleCase entity_type}}</label>
+     </td>
+    </dd>
+    <br>
+    
+    {{#if isEqual deceased 'true'}}
+     <dt style="font-weight: normal">Status</dt>
+     <dd>
+     <td>
+       <label class="label label-danger">Deceased</label>
+     </td>
+     </dd>
+     <br>
+    {{/if}}
+
+    {{#if association_type}}
+    <dt style="font-weight: normal">Relationship</dt>
+    <dd>
+     <td>
+      <label>{{getTextFromValue association_type}}</label>
+     </td>
+    </dd>
+    <br>
+   {{/if}}
+
+   {{#if isEqual entity_type 'INDIVIDUAL'}}
+   <dt style="font-weight: normal">Full Name</dt>
+    <dd>
+     <td>
+      {{#each names}}
+       {{#if isEqual name_type 'PRIMARY_NAME'}}
+        <label type="text"> {{first_name}} {{middle_name}} {{last_name}} {{maiden_name}}</label>
+       {{/if}}
+      {{/each}}
+     </td>
+    </dd>
+    <br>
+   {{else}}
+   <dt style="font-weight: normal">Company Name(s)</dt>
+    <dd>
+     <td>
+      {{#each names}}
+       {{#if isEqual name_type 'PRIMARY_NAME'}}
+        <label type="text"> {{company_name}}</label>
+       {{/if}}
+      {{/each}}
+     </td>
+    </dd>
+    <br>
+   {{/if}}
+   
+   {{#if ../hasAlternativeName}}
+    {{#if isEqual entity_type 'INDIVIDUAL'}}   
+     <dt style="font-weight: normal">Alternative Name(s)</dt>
+     <dd>
+      <td>
+       {{#each names}}
+        {{#unless isEqual name_type 'PRIMARY_NAME'}}     
+         <label type="text"> {{first_name}} {{middle_name}} {{last_name}} {{maiden_name}}</label> <i>({{getTextFromValue name_type}})</i> <br>
+        {{/unless}}
+        {{#if original_script_name}}     
+         <label type="text"> <bdi>{{original_script_name}}</bdi></label> <i>(Original Script Name)</i><br>
+        {{/if}}
+       {{/each}}
+      </td>
+     </dd>
+     <br>
+    {{else}}
+     <dt style="font-weight: normal">Alternative Name(s)</dt>
+     <dd>
+      <td>
+       {{#each names}}
+        {{#unless isEqual name_type 'PRIMARY_NAME'}}     
+         <label type="text"> {{company_name}}</label> <i>({{getTextFromValue name_type}})</i> <br>
+        {{/unless}}
+        {{#if original_script_name}}     
+         <label type="text"> <bdi>{{original_script_name}}</bdi></label> <i>(Original Script Name)</i><br>
+        {{/if}}
+       {{/each}}
+      </td>
+     </dd>
+     <br>
+    {{/if}}
+   {{/if}}
+
+    {{#if incorporation_number}}
+    <dt style="font-weight: normal">Incorporation Number</dt>
+    <dd>
+     <td>
+      <label type="text"> {{incorporation_number}}</label>
+     </td>
+    </dd>
+    <br>
+   {{/if}}
+
+    {{#if dobs}}
+     <dt style="font-weight: normal">DOB(s)</dt>
+     <dd>
+      <td>
+       {{#each dobs}}    
+         <label type="text"> 
+          {{#if day}} {{day}} / {{/if}}
+          {{#if month}} {{monthName month}} / {{/if}}
+          {{#if year}} {{year}} {{/if}}
+         </label>
+         <br>
+       {{/each}}
+      </td>
+     </dd>
+     <br>
+    {{/if}}
+
+    {{#if birth_places}}
+    <dt style="font-weight: normal">Birth Place</dt>
+    <dd>
+     <td>
+      {{#each birth_places}}    
+       {{#if isEqual this '000'}}
+        <label type="text">-</label>
+       {{else}}
+        <label type="text"> {{toCountryName this}}</label>
+        <img src="/images/flags/16/{{getCountryFlag this}}.png">
+       {{/if}}      
+       <br>
+      {{/each}}
+     </td>
+    </dd>
+    <br>
+   {{/if}}
+
+    {{#if gender}}
+     <dt style="font-weight: normal">Gender</dt>
+     <dd><td><label type="text"> {{toTitleCase gender}}</label></td></dd>
+     <br>
+    {{/if}}
+    
+    {{#if countries_of_citizenship}}
+     <dt style="font-weight: normal">Citizenship(s)</dt>
+     <dd>
+      <td>
+       {{#each countries_of_citizenship}}      
+        {{#if isEqual this '000'}}
+         <label type="text">-</label>
+        {{else}}
+         <label type="text"> {{toCountryName this}}</label>
+         <img src="/images/flags/16/{{getCountryFlag this}}.png">
+        {{/if}}           
+        <br>
+       {{/each}}
+      </td>
+     </dd>
+     <br>
+    {{/if}}
+
+    {{#if countries_of_residence}}
+    <dt style="font-weight: normal">Residence(s)</dt>
+    <dd>
+     <td>
+      {{#each countries_of_residence}}                 
+       {{#if isEqual this '000'}}
+        <label type="text">-</label>
+       {{else}}
+        <label type="text"> {{toCountryName this}}</label>
+        <img src="/images/flags/16/{{getCountryFlag this}}.png">
+       {{/if}}
+       <br>
+      {{/each}}
+     </td>
+    </dd>
+    <br>
+   {{/if}}
+   
+   {{#if countries_of_reported_allegation}}
+     <dt style="font-weight: normal">Countries of Allegation</dt>
+     <dd>
+     <td>
+       {{#each countries_of_reported_allegation}}                 
+        {{#if isEqual this '000'}}
+         <label type="text">-</label>
+        {{else}}
+         <label type="text"> {{toCountryName this}}</label>
+         <img src="/images/flags/16/{{getCountryFlag this}}.png">
+        {{/if}}
+       <br>
+       {{/each}}
+     </td>
+     </dd>
+     <br>
+   {{/if}}
+
+   {{#if countries_of_registration}}
+    <dt style="font-weight: normal">Countries of Registration</dt>
+    <dd>
+    <td>
+      {{#each countries_of_registration}}                 
+       {{#if isEqual this '000'}}
+        <label type="text">-</label>
+       {{else}}
+        <label type="text"> {{toCountryName this}}</label>
+        <img src="/images/flags/16/{{getCountryFlag this}}.png">
+       {{/if}}
+      <br>
+      {{/each}}
+    </td>
+    </dd>
+    <br>
+   {{/if}}
+
+   {{#if countries_of_ownership}}
+    <dt style="font-weight: normal">Countries of Ownership</dt>
+    <dd>
+    <td>
+      {{#each countries_of_ownership}}                 
+       {{#if isEqual this '000'}}
+        <label type="text">-</label>
+       {{else}}
+        <label type="text"> {{toCountryName this}}</label>
+        <img src="/images/flags/16/{{getCountryFlag this}}.png">
+       {{/if}}
+      <br>
+      {{/each}}
+    </td>
+    </dd>
+    <br>
+   {{/if}}
+
+   {{#if countries_of_affiliation}}
+    <dt style="font-weight: normal">Countries of Affiliation</dt>
+    <dd>
+    <td>
+      {{#each countries_of_affiliation}}                 
+       {{#if isEqual this '000'}}
+        <label type="text">-</label>
+       {{else}}
+        <label type="text"> {{toCountryName this}}</label>
+        <img src="/images/flags/16/{{getCountryFlag this}}.png">
+       {{/if}}
+      <br>
+      {{/each}}
+    </td>
+    </dd>
+    <br>
+   {{/if}}
+   
+   {{#if associated_countries}}
+    <dt style="font-weight: normal">Associated Countries</dt>
+    <dd>
+     <td>
+      {{#each associated_countries}}                 
+       {{#if isEqual this '000'}}
+        <label type="text">-</label>
+       {{else}}
+        <label type="text"> {{toCountryName this}}</label>
+        <img src="/images/flags/16/{{getCountryFlag this}}.png">
+       {{/if}}
+       <br>
+      {{/each}}
+     </td>
+    </dd>
+    <br>
+   {{/if}}
+   
+   {{#if jurisdiction}}
+    <dt style="font-weight: normal">Jurisdiction(s)</dt>
+    <dd>
+    <td>
+      {{#each jurisdiction}}                 
+        {{#if isEqual this '000'}}
+        <label type="text">-</label>
+        {{else}}
+        <label type="text"> {{toCountryName this}}</label>
+        <img src="/images/flags/16/{{getCountryFlag this}}.png">
+        {{/if}}
+      <br>
+      {{/each}}
+    </td>
+    </dd>
+    <br>
+  {{/if}}
+ </dl>
+
+ {{/with}}
+</template>

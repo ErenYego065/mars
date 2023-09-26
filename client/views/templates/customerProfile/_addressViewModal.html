@@ -1,0 +1,179 @@
+<template name="addressViewModal">
+ <div class="modal inmodal fade" id="addressViewModal" tabindex="-1" style="overflow:auto;" role="dialog"  aria-hidden="true"
+ data-backdrop="false">
+  <div class="modal-dialog">
+   <div class="modal-content">
+    {{#each address}}
+    <div class="modal-header">
+     <h5 class="modal-title">
+      {{#if editingAddress}}
+       Edit Address
+      {{else}}
+       Address Details
+      {{/if}}
+     </h5>
+    </div>
+   <div class="modal-body">
+    <div class="col-sm-12">
+     <dl class="dl-horizontal">             
+      <!-- Property Number -->
+      <dt class="modal-header-label">Property Number</dt>
+      <dd>
+       {{#if editingAddress}}
+        <input type="text" class="form-control input-sm" id="newAddressPropertyNumber" value="{{property_number}}"
+        placeholder="Property Number">
+       {{else}}
+        <label id="addressPropertyNumber" class="modal-label" type="text" >{{emptyIfNull property_number}}</label>
+       {{/if}}
+      </dd>
+
+      <!-- Property Name -->
+      <dt class="modal-header-label">Property Name</dt>
+      <dd>
+       {{#if editingAddress}}
+        <input type="text" class="form-control input-sm" id="newAddressPropertyName" value="{{property_name}}"
+        placeholder="Property Name">
+       {{else}}
+        <label id="addressPropertyName" class="modal-label" type="text">{{emptyIfNull property_name}}</label>
+       {{/if}}
+      </dd>
+
+      <!-- Address Line -->
+      <dt class="modal-header-label">Line</dt>
+      <dd>
+       {{#if editingAddress}}
+        <input type="text" class="form-control input-sm" id="newAddressLine" value="{{line}}"
+        placeholder="Line">
+       {{else}}
+        <label id="addressLine" class="modal-label" type="text" >{{emptyIfNull line}}</label>
+       {{/if}}
+      </dd>
+
+      <!-- Address Extra Line -->
+      <dt class="modal-header-label">Extra Line</dt>
+      <dd>
+       {{#if editingAddress}}
+        <input type="text" class="form-control input-sm" id="newAddressExtraLine" value="{{extra_line}}"
+        placeholder="Extra Line">
+       {{else}}
+        <label id="addressExtraLine" class="modal-label" type="text" >{{emptyIfNull extra_line}}</label>
+       {{/if}}
+      </dd>
+
+      <!-- Address City-->
+      <dt class="modal-header-label">City</dt>
+      <dd>
+       {{#if editingAddress}}
+        <input type="text" class="form-control input-sm" id="newAddressCity" value="{{city}}"
+        placeholder="City">
+       {{else}}
+        <label id="addressCity" class="modal-label" type="text" >{{emptyIfNull city}}</label>
+       {{/if}}
+      </dd>
+
+      <!-- Address Province-->
+      <dt class="modal-header-label">Province</dt>
+      <dd>
+       {{#if editingAddress}}
+        <input type="text" class="form-control input-sm" id="newAddressProvince" value="{{state_or_province}}"
+        placeholder="Province">
+       {{else}}
+        <label id="addressProvince" class="modal-label" type="text" >{{emptyIfNull state_or_province}}</label>
+       {{/if}}
+      </dd>
+
+      <!-- Address Province-->
+      <dt class="modal-header-label">Postal Code</dt>
+      <dd>
+       {{#if editingAddress}}
+        <input type="text" class="form-control input-sm" id="newAddressPostalCode" value="{{postal_code}}"
+        placeholder="Postal Code">
+       {{else}}
+        <label id="addressPostalCode" class="modal-label" type="text" >{{emptyIfNull postal_code}}</label>
+       {{/if}}
+      </dd>
+
+      <!-- Address Country-->
+      <dt class="modal-header-label">Country</dt>
+      <dd>
+       {{#if editingAddress}}
+        <select id="newAddressCountry" class="form-control input-sm" style="margin-top: 1px;">
+         {{#each countries}}
+          <option  value="{{this.value}}" {{isSelected this.value ../country}}>{{this.text}}</option>
+         {{/each}}
+        </select>
+       {{else}}
+        {{#if country}}
+         <label id="addressCountry" class="modal-label" type="text">{{toCountryName country}}</label>
+         <img src="/images/flags/16/{{getCountryFlag country}}.png">         
+        {{else}}
+         {{empty}}
+        {{/if}}
+       {{/if}}
+      </dd>
+
+      <!-- Address Type-->
+      <dt class="modal-header-label">Address Type</dt>
+      <dd>
+       {{#if editingAddress}}
+        <select id="newAddressType" class="form-control input-sm" style="margin-top: 1px;">
+         {{#each addressTypeOptions}}
+          <option  value="{{this.value}}" {{isSelected this.value ../type}}>{{this.text}}</option>
+         {{/each}}
+        </select>
+        {{else}}
+         <label id="viewAddressType" class="modal-label" type="text">
+          {{#if type}}
+           {{toTitleCase type}}
+          {{else}}
+           {{empty}}
+          {{/if}}
+         </label>
+       {{/if}}
+      </dd>
+
+      <!-- Address Dates-->
+      <dt class="modal-header-label">Dates at Address</dt>
+      <dd>
+       <div id="addressDateRange" style="display: none;">
+        <div class="input-daterange input-group" id="datepicker">
+         <input id="addressFromDate" class="form-control input-sm" value="{{dateConvert from_date 'DD/MM/YYYY'}}"
+         placeholder="From Date"/>
+         <span class="input-group-addon"></span>
+         <input id="addressToDate" class="form-control input-sm" value="{{dateConvert to_date 'DD/MM/YYYY'}}"
+         placeholder="To Date"/>
+        </div>
+       </div> 
+       {{#unless editingAddress}}
+        <label class="modal-label" type="text">
+         {{#if from_date}}
+          {{dateConvert from_date 'Do MMM YYYY'}} to
+          {{#if to_date}}
+           {{dateConvert to_date 'Do MMM YYYY'}}
+          {{else}}
+           present
+          {{/if}}
+         {{else}}
+          {{empty}}
+         {{/if}}
+        </label>
+       {{/unless}}
+      </dd>
+     </dl>        
+    </div>
+   
+    <div align='center'><span id='addressValidationMessage' class="validation"></span></div>
+    <div class="row"></div>
+   </div>
+
+   <div class="modal-footer">
+    <button type="button" class="btn btn-primary" id="saveAddress"><i class="fa fa-save"></i> Save</button>    
+    <button type="button" class="btn btn-primary"  id="editAddress"><i class="fa fa-edit"></i> Edit</button>    
+    <button type="button" class="btn btn-white" id="closeAddress" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-white" id="cancelAddress"><i class="fa fa-times"></i> Cancel</button>
+   </div>
+   {{/each}}
+  </div>  
+ </div>
+</div>
+</template>

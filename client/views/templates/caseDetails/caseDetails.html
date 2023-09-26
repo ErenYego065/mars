@@ -1,0 +1,57 @@
+<template name="caseDetails">
+ {{> pageHeading title='Case Details' category='Case Details' parent='Cases'}}
+
+ {{#with caseDetails}}  
+ <div class="wrapper wrapper-content  animated fadeInRight">
+  <div class="row">
+   <div class="ibox float-e-margins" id="ibox1">
+    <div class="ibox-content">
+     <div class="col-sm-12">                    
+      <table style="width:100%">
+       <tr>
+        <td align="left"> 
+         <span class="pull-right">
+          {{> idDateWidget id=id updated_at=updated_at}}       
+         </span>
+         <h1>{{title}}</h1>
+        </td>
+       </tr>
+      </table>        
+     </div>
+    </div>
+   </div>
+  </div>
+
+  {{> caseProperties caseDetails=caseDetails}}
+
+  <div class="row">
+   <div class="col-sm-12">
+    <div class="panel blank-panel"> 
+     <br><br>
+     <a id="tabAnchor"></a>
+
+     <div class="tabs-container">
+      <ul class="nav nav-tabs">
+       <li class="active"><a href="#caseComments" data-toggle="tab">Comments</a></li>
+       <li class=""><a href="#caseAttachments" data-toggle="tab">Attachments</a></li>         
+      </ul>
+     </div>
+
+      <div class="panel-body">
+       <div class="tab-content">
+        {{> caseComments comments=comments}}
+        {{> caseAttachments attachments=attachments}}        
+        <br><br>
+        
+        <div align="left">
+         <button class="btn btn-danger btn-md deleteCustomer" type="button" {{checkStatus}}><i class="fa fa-times"></i> Delete Case</button>
+        </div>
+        
+       </div>
+      </div>
+     </div>
+   </div>
+  </div>
+ </div>
+ {{/with}}
+</template>

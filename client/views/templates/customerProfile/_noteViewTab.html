@@ -1,0 +1,63 @@
+<template name="noteViewTab">
+ <div class="tab-pane" id="noteViewTab">
+  <div class="tab-content">
+   {{#if addNoteFlag}}
+    <table width="100%">
+     <tr>
+      <textarea class="form-control message-input" style="resize: vertical;" 
+      maxlength="4000" id="note" placeholder="Enter note" autofocus>{{{editNote}}}</textarea>
+     </tr>
+     <tr align="right">
+      <td>
+       <button id="" class="btn btn-default editable-button cancelNote" type="button"><i class="fa fa-times"></i></button>
+       <button class="btn btn-primary editable-button saveNote" type="button"><i class="fa fa-check"></i></button>
+      </td>
+     </tr>
+    </table>
+   {{/if}}
+   {{#if notes}}
+    {{#unless addNoteFlag}}    
+    <table width="100%">
+      <tr align="right">
+       <button class="btn btn-plain btn-xs addNote" type="button"><i class="fa fa-plus"></i> Add </button>
+      </tr>
+    </table>
+    {{/unless}}
+    {{#each notes}}
+     <div class="feed-activity-list">
+      <div class="feed-element">
+       <div class="media-body">
+        <!-- <small class="text-muted">
+         {{dateConvert updated_at 'dd MMM YYYY [at] HH:mm:ss'}}
+        </small> -->
+        <div id={{id}} class="well">
+         {{text}}
+        </div>
+        <div align="left">
+          <small class="text-muted"> 
+           <a class='editNote' type="text" data-id={{id}}>Edit</a> &#9679;
+           <a class='deleteNote' type="text" data-id={{id}}>Delete</a> &#9679;
+           {{dateConvert updated_at 'Do MMMM YYYY, HH:mm:ss'}}
+          </small>
+        </div>
+       </div>
+      </div>
+     </div>
+    {{/each}}
+   {{else}}
+   {{#unless addNoteFlag}}
+    <table width="100%">
+      <tr>
+        <td align='left'>No note available.</td>
+        <td align='right'>
+          <button class="btn btn-plain btn-xs addNote" type="button">
+          <i class="fa fa-plus"></i> Add </button>
+        </td>
+      </tr>
+    </table>
+    {{/unless}}
+   {{/if}}
+  
+  </div>
+ </div> 
+</template>

@@ -1,0 +1,42 @@
+<template name="topNavigation">
+ <div class="row border-bottom white-bg">
+  <nav class="navbar navbar-static-top" role="navigation">
+   <div class="navbar-header">
+    <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+     <i class="fa fa-reorder"></i>
+    </button>
+    <a href="/" class="navbar-brand"><img src="/images/ClearDil_White.png" width="135px"></a>
+   </div>
+   <div class="navbar-collapse collapse" id="navbar">
+
+    <ul class="nav navbar-nav">
+     <li>
+      <a aria-expanded="false" role="button" href="/dashboard">Dashboard</a>
+     </li>
+     <li>
+      <a aria-expanded="false" role="button" href="/customers">Customers</a>
+     </li>
+     <li>
+      <a aria-expanded="false" role="button" href="/screeningSearch">Screenings</a>
+     </li>
+     <li>
+      <a aria-expanded="false" role="button" href="/matchProfile">Scorecard</a>
+     </li>
+
+     <!-- <li>
+      <a aria-expanded="false" role="button" href="/playground">playground</a>
+     </li> -->
+    </ul>
+
+    <ul class="nav navbar-top-links navbar-right">
+     <li>
+      <a href="/login">
+       <i class="fa fa-sign-out"></i> Log out
+      </a>
+     </li>
+    </ul>
+
+   </div>
+  </nav>
+ </div>
+</template>

@@ -1,0 +1,66 @@
+<template name="cases">
+ {{> pageHeading title='Cases' category='Case Management' parent='Cases'}}
+
+ <div class="wrapper wrapper-content  animated fadeInRight">
+  <div class="row">
+   <div class="ibox float-e-margins" id="ibox1">
+    <div class="ibox-content">
+     <!-- <div class="col-md-4">
+      <div class="input-group">
+       <input type="text" placeholder="Add new task" class="input input-sm form-control caseTitle">
+       <span class="input-group-btn">
+        <button type="button" class="btn btn-sm btn-white addCase"> <i class="fa fa-plus"></i> Add case</button>
+       </span>
+      </div>
+     </div> -->
+					<div class="col-md-2" style="padding-top:5px;">
+							Date filter							
+					</div>
+     <div class="col-md-6">
+      <div id="caseDateRange">
+       <div class="input-daterange input-group" id="datepicker">
+        <input class="form-control input-sm dateFrom" placeholder="Date From" value="{{dateConvert caseFromDate 'DD/MM/YYYY'}}" style="text-align:left;"/>
+        <span class="date-gap"></span>
+        <input class="form-control input-sm dateTo" placeholder="Date To" value="{{dateConvert caseToDate 'DD/MM/YYYY'}}" style="text-align:left;"/>
+       </div>
+      </div> 
+     </div>
+
+     <div class="col-sm-4" align="right">
+      <button class="btn btn-success btn-sm" type="button" data-toggle="modal" 	data-target="#createCaseModal">
+       <i class="fa fa-plus"></i> Create Case
+      </button>
+    </div>
+    </div>
+    
+    <br><br>
+    {{> caseBoard cases=allCasesToDo sectionTitle='To-do' sectionId="toDo"}}
+    {{> caseBoard cases=allCasesInProgress sectionTitle='In Progress' sectionId="inProgress"}}   
+    {{> caseBoard cases=allCasesComplete sectionTitle='Complete' sectionId="complete"}}   
+   </div>
+  </div>
+	</div>
+	{{> createCaseModal}}
+</template>
+
+<template name="caseBoard">
+ <div class="col-md-4">           
+  <div class="ibox">
+   <div class="ibox-content">
+    <h3>{{sectionTitle}}</h3>
+    <p class="small"><i class="fa fa-hand-o-up"></i> Drag case between list</p>
+    <ul class="sortable-list connectList agile-list" id="{{sectionId}}">
+     {{#each cases}}      
+     <li class="default-element" id="toDoCase{{@index}}" data-id="{{id}}">
+      <a href="/customers/1289319287391827398213/cases/123-123123-1asdfsadf">{{title}}</a>
+      <div class="agile-detail">
+       <span class="pull-right label label-{{toLowerCase priority}}">{{toTitleCase priority}}</span>         
+       <i class="fa fa-clock-o"></i> {{dateConvert updated_at 'Do MMM YYYY [at] HH:mm:ss'}}
+      </div>
+     </li>
+     {{/each}}
+    </ul>
+   </div>
+  </div>
+ </div>
+</template>

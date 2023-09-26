@@ -1,0 +1,135 @@
+<template name="documentAddModal">
+ <div class="modal inmodal fade" id="documentAddModal" tabindex="-1" style="overflow:auto;" role="dialog"  aria-hidden="true"
+ data-backdrop="false">
+   <div class="modal-dialog">
+    <div class="modal-content">
+     <div class="modal-header">
+      <h5 class="modal-title">
+       Add Document
+      </h5>
+     </div>
+     <div class="modal-body">
+        <div class="col-sm-12">
+            <form id="documentUploadForm">
+          
+         <dl class="dl-horizontal">          
+
+          <!-- Document Type-->
+          <dt class="modal-header-label">Type<sup class="required">*</sup></dt>
+          <dd>
+           <select id="newDocumentType" class="form-control input-sm" style="margin-top: 1px;">
+             {{#each documentTypeOptions}}
+             <option value="{{this.value}}">{{this.text}}</option>
+             {{/each}}
+           </select>
+          </dd>
+
+          <!-- Document Number -->
+          <dt class="modal-header-label">Document Number</dt>
+          <dd>
+           <input type="text" class="form-control input-sm" id="newDocumentNumber" placeholder="Document Number">
+          </dd>
+
+          <!-- Document Name -->
+          <dt class="modal-header-label">Document Name</dt>
+          <dd>
+           <input type="text" class="form-control input-sm" id="newDocumentName" placeholder="Document Name">
+          </dd>
+
+          <!-- Issuing Country-->
+          <dt class="modal-header-label">Issuing Country</dt>
+          <dd>
+           <select id="newDocumentIssuingCountry" class="form-control input-sm" style="margin-top: 1px;">
+             {{#each countries}}
+              <option value="{{this.value}}">{{this.text}}</option>
+             {{/each}}
+           </select>
+          </dd>
+
+          <!-- Issuing Authority-->
+          <dt class="modal-header-label">Issuing Authority</dt>
+          <dd>
+           <input type="text" class="form-control input-sm" id="newDocumentIssuingAuthority" placeholder="Issuing Authority">
+          </dd>
+
+          <!-- Validity Dates-->
+          <dt class="modal-header-label">Validity</dt>
+          <dd>
+           <div id="newDocumentDateRange">
+            <div class="input-daterange input-group" id="datepicker">
+             <input id="newDocumentIssueDate" class="form-control input-sm" placeholder="Issue Date"/>
+             <span class="input-group-addon"></span>
+             <input id="newDocumentExpiryDate" class="form-control input-sm" placeholder="Expiry Date"/>
+            </div>
+           </div> 
+          </dd>
+
+          <!-- MRZ Line 1 -->
+          <dt class="modal-header-label">MRZ Line 1</dt>
+          <dd>
+           <input type="text" class="form-control input-sm" id="newDocumentMrzLine1" placeholder="MRZ Line 1">
+          </dd>
+
+          <!-- MRZ Line 2 -->
+          <dt class="modal-header-label">MRZ Line 2</dt>
+          <dd>
+           <input type="text" class="form-control input-sm" id="newDocumentMrzLine2" placeholder="MRZ Line 2">
+          </dd>
+
+          <!-- MRZ Line 3 -->
+          <dt class="modal-header-label">MRZ Line 3</dt>
+          <dd>
+           <input type="text" class="form-control input-sm" id="newDocumentMrzLine3" placeholder="MRZ Line 3">
+          </dd>
+
+          <!-- Document Description -->
+          <dt class="modal-header-label">Description</dt>
+          <dd>
+           <input type="text" class="form-control input-sm" id="newDocumentDescription" placeholder="Description">
+          </dd>
+
+          <br style="margin-top: 5px;display: block;content:'';line-height:5px">
+          <!-- Document Front Side -->
+          <dt class="modal-header-label">Front Side Attachment</dt>
+          <dd>
+            <div class="fileinput fileinput-new" data-provides="fileinput" id="frontSideInput">
+             <span class="btn btn-default btn-file">
+              <span class="fileinput-new input-sm fileInput">Select file</span>
+              <span class="fileinput-exists input-sm fileInput">Change</span>
+              <input type="file" name="..." id="frontSideFile">
+             </span>
+             <span class="fileinput-filename"></span>
+             <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+            </div>
+          </dd>
+
+          <!-- Document Back Side -->
+          <dt class="modal-header-label">Back Side Attachment</dt>
+          <dd>
+            <div class="fileinput fileinput-new" data-provides="fileinput">
+             <span class="btn btn-default btn-file">
+              <span class="fileinput-new input-sm fileInput">Select file</span>
+              <span class="fileinput-exists input-sm fileInput">Change</span>
+              <input type="file" name="..." id="backSideFile">
+             </span>
+             <span class="fileinput-filename"></span>
+             <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+            </div>
+          </dd>
+
+         </dl>
+        </form>
+        </div>
+       <div align='center'><span id='newDocumentValidationMessage' class="validation"></span></div>
+       <div class="row"> </div>
+     </div>
+
+     <div class="modal-footer">
+      <button type="button" class="btn btn-primary" id="saveNewDocument"><i class="fa fa-save"></i> Save</button>
+      <button type="button" class="btn btn-white" id="closeNewDocument">Close</button>      
+     </div>
+
+    </div>  
+   </div>
+  </div>
+</template>

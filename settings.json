@@ -1,0 +1,32 @@
+{
+  "private": {
+    "domainUrl" : "http://localhost:3000/",
+    "encryptionKey": "dadffe111tryettrttweBe",
+    "mailUrl" :"smtps://postmaster%40mg.cleardil.com:663faa884c90d802258714508c578312-77751bfc-65cec56f@smtp.eu.mailgun.org:465",
+    "adminAuthCode": "c2RhZG06NDJmNDIwNDItYjhmYS00MmYyLWFlNDItYTQyYjQyZjlkNWI5",
+    "newAccountPassword": "123123",
+    "authenticatorLabel" : "ClearDil-dev"
+  },
+
+  "public": {
+    "no_of_elements_table" : 1000,
+    "file_upload_size_limit" : 5242880,
+    "authentication_uri_live": "https://dev.cleardil.com/v1/oauth2/token",
+    "base_uri_live": "https://dev.cleardil.com/v1",
+    "env_name_live": "LIVE",
+    "authentication_uri_test": "https://dev.cleardil.com/v1/oauth2/token",
+    "base_uri_test": "https://dev.cleardil.com/v1",
+    "env_name_test": "TEST"
+  },
+
+  "sikka": {
+    "captcha": {
+      "siteKey": "",
+      "secret":  ""
+    },
+    "rateLimits": {
+      "perIp": 35
+    },
+    "onlyForHumans": true
+  }
+}

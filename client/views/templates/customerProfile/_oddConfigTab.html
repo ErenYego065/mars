@@ -1,0 +1,77 @@
+<template name="oddConfigTab">
+ <div class="tab-pane" id="oddConfigTab">    
+  {{#if customerODD}}
+  <table class="table table-striped" width="100%" id="oddTable">
+   <thead>
+    <tr>
+     <th width="76%">
+      Scope
+      <small style="font-weight:100">
+       <i>(click on box below to add)</i>
+      </small>
+     </th>
+     <th width="20%">Frequency</th>
+     <th width="7%"></th>
+     <th width="7%"> 
+      <button class="btn btn-plain btn-xs addOdd" type="button">
+      <i class="fa fa-plus"></i> Add </button>
+     </th>
+    </tr>
+    </thead>
+    <tbody>
+     {{#each customerODD}}
+      <tr id="row-{{id}}">      
+       <td>
+        {{#chosen width="100%"}}
+         <select data-placeholder=" Set scope" name="scopes" id="scopes" class="form-control chosen-select scopes" multiple tabindex="4"
+         data-id={{id}}>
+          {{#each screeningScopeOptions}}
+          <option  value="{{this.value}}" {{isSelectedArray this.value ../scope}}>{{this.text}}</option>
+         {{/each}}
+        </select>
+       {{/chosen}}
+      </td>
+      
+      <td>        
+       <select id="oddFrequency" class="form-control input-sm frequency" data-id={{id}}>
+        {{#each oddFrequenciesOptions}}
+         <option  value="{{this.value}}" {{isSelected this.value ../frequency}}>{{this.text}}</option>
+        {{/each}}
+       </select>
+      </td>
+     
+      <td style="padding-left:60px;">
+       <div class="onoffswitch">
+        <input type="checkbox" {{isChecked active}} class="onoffswitch-checkbox oddEnabled" id="{{id}}" style="height:40px;">
+        <label class="onoffswitch-label" for="{{id}}">
+         <span class="onoffswitch-inner"></span>
+         <span class="onoffswitch-switch"></span>
+        </label>
+       </div>
+      </td>
+        
+      <td align="right">
+       <button class="btn btn-danger btn-xs deleteOdd" type="button" data-toggle="modal" data-id={{id}}>
+        Delete
+       </button>
+      </td>
+     </tr>
+
+    {{/each}}
+   </tbody>
+   
+  </table>
+  {{else}}
+   <table width="100%">
+    <tr>
+     <td align='left'>No continuous monitoring settings exist for customer.</td>
+     <td align='right'>
+      <button class="btn btn-plain btn-xs addOdd" type="button">
+       <i class="fa fa-plus"></i> Add
+      </button>
+     </td>
+    </tr>
+   </table>
+  {{/if}}
+ </div>
+</template>

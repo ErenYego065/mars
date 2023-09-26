@@ -1,0 +1,16 @@
+<template name="imageCanvas">
+ <div class="carouselImages">
+  {{#if image_uri}}
+   {{#each image_uri}} 
+    <div>
+     <img class="img-rounded" src="{{this}}" style="max-width:100%!important;height:220px!important;">
+     <!-- <img data-type="imageCanvas" src="{{this}}" class="img-responsive img-rounded">      -->
+    </div>
+   {{/each}}
+  {{else}}
+   <div>
+    <img src="/images/brokenImage.png" class="img-responsive img-rounded">
+   </div>
+  {{/if}}   
+ </div>
+</template>

@@ -1,0 +1,61 @@
+<template name="createCaseModal">
+ <div class="modal inmodal fade" id="createCaseModal" tabindex="-1" style="overflow:auto;" role="dialog"  aria-hidden="true"
+  data-backdrop="static">
+  <div class="modal-dialog">
+   <div class="modal-content">
+    <div class="modal-header">
+     <h5 class="modal-title">
+      Create Case
+     </h5>
+    </div>
+    <div class="modal-body">
+     <div class="col-sm-12">
+       
+      <dl class="dl-horizontal">          
+      
+       <dt class="modal-header-label">Title <sup class="required">*</sup></dt>
+       <dd>
+        <input type="text" class="form-control" id="newCaseTitle" placeholder="Title">
+       </dd>
+       <br>
+
+       <dt class="modal-header-label">Priority</dt>
+       <dd>
+        <select id="newCasePriority" class="form-control input-sm" style="margin-top: 1px;">
+          {{#each priorityOptions}}
+            <option value="{{this.value}}">{{this.text}}</option>
+          {{/each}}
+        </select>
+       </dd>
+       <br>
+
+       <dt class="modal-header-label">Related Customer</dt>
+       <dd>
+        <input type="text" placeholder="Search customer..." class="newCaseRelatedCustomer form-control" data-set={{customersList}}/>        
+       </dd>
+       <br>
+
+       <dt class="modal-header-label">Summary</dt>
+       <dd>
+        <textarea id="newCaseSummary" placeholder="Summary" rows="8" class="form-control"
+        style="resize: none;" maxlength="4000"></textarea>
+       </dd>
+       <br>
+
+
+      </dl>
+     </div>
+     <div align='center'><span id='caseValidationMessage' class="validation"></span></div>
+     <div class="row"> </div>
+    </div>
+
+    <div class="modal-footer">
+
+     <button type="button" class="btn btn-primary" id="saveNewCase" data-dismiss="modal"><i class="fa fa-save"></i> Save</button>
+     <button type="button" class="btn btn-white" id="closeNewCase" data-dismiss="modal">Close</button>     
+    </div>
+
+   </div>  
+  </div>
+ </div>
+</template>

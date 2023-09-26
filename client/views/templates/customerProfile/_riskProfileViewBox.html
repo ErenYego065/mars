@@ -1,0 +1,65 @@
+<template name="riskProfileViewBox">
+ <!-- {{#if riskBreakdownShownFlag}} -->
+  <!-- <div class="row" style="{{displaySection}}"> -->
+  <div class="row">    
+   <div class="col-sm-12">
+    <div class="ibox float-e-margins">
+     <!-- <div class="ibox-dashboard"> -->
+    
+
+     <h2 style="padding-top:22px;text-align:center;">
+       Risk Profile
+       <!-- <br>
+      <small>Last refreshed on <strong>{{currentTime}} &nbsp;</strong></small>                                  -->
+      </h2>
+
+     <div class="row">
+       <div class="col-lg-12">
+        <canvas id="radarChart" height="120px"></canvas>
+       </div>
+       <div class="col-lg-12" style="{{displaySection}};padding-left:100px;">
+        <br>
+        {{#with riskProfile.risk}}
+         <!-- {{> riskBreakdown riskFactor=overall title='Customer' parent='true'}}            -->
+         {{> riskBreakdownSection riskFactor=country title='Country'}}      
+         {{> riskBreakdownSection riskFactor=watchlist title='Watchlist'}}
+         {{> riskBreakdownSection riskFactor=occupation title='Occupation'}}
+         {{> riskBreakdownSection riskFactor=political_exposure title='Political Exposure'}}
+        {{/with}}
+       </div>
+       <div class="col-lg-12" style="padding-left:100px;">
+        {{#with riskProfile}}
+         <!-- <span>
+          <br>   
+          <small>   
+           Last updated on <strong>{{dateConvert last_updated 'Do MMM YYYY HH:mm:ss'}}</strong> 
+           due to <strong>{{getTextFromValue last_trigger}}</strong>.
+          </small>
+         </span> -->
+        {{/with}}
+       </div>
+      <!-- </div> -->
+     </div>
+    </div>
+   </div>
+  </div>
+ <!-- {{/if}} -->
+</template>
+
+<template name="riskBreakdownSection">
+ <tr>
+  {{#if parent}}<td>{{title}}</td>
+  {{else}}
+   <td style="padding-top:5px;">
+    <!-- &#9679;  -->
+    <!-- &rarr; -->
+    {{title}} risk: 
+     {{#if riskFactor}}
+     <span class="badge badge-{{toLowerCase riskFactor}}">{{toTitleCase riskFactor}}</span>
+     {{else}}
+     <span class="badge badge-plain">&nbsp;&nbsp; - &nbsp;&nbsp;</span>
+     {{/if}}
+   </td>
+  {{/if}}
+ </tr>
+</template>

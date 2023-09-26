@@ -1,0 +1,143 @@
+<template name="verificationExtractedInformation">
+ <div class="row">   
+  <div class="col-sm-12">
+   {{#with verificationDetails.properties}}
+
+   <div class="ibox float-e-margins">
+    <div class="ibox-dashboard">
+     <div class="row">
+      <div class="col-sm-6">
+       <h3>Extracted Information</h3>
+       <br>
+       <table>
+        <tr>
+         <td>Document Type&nbsp;&nbsp;&nbsp;</td>
+         <td><strong>{{#if document_type}} {{getTextFromValue document_type}} {{else}} - {{/if}}</strong></td>         
+        </tr>
+        <tr>
+         <td>Document No.</td>
+         <td><strong>{{#if document_data.document_number}} {{document_data.document_number}} {{else}} - {{/if}}</strong></td>                  
+        </tr>
+        <tr>
+         <td>First Name</td>
+         <td><strong>{{#if holder_data.first_name}} {{holder_data.first_name}} {{else}} - {{/if}}</strong></td>
+        </tr>
+        <tr>
+         <td>Last Name</td>
+         <td><strong>{{#if holder_data.last_name}} {{holder_data.last_name}} {{else}} - {{/if}}</strong></td>         
+        </tr>
+        <tr>
+         <td>DOB </td>
+         <td>
+          <strong>
+           {{#if holder_data.dob}}
+            {{#if holder_data.dob.day}} {{holder_data.dob.day}} / {{/if}}
+            {{#if holder_data.dob.month}} {{monthName holder_data.dob.month}} / {{/if}}
+            {{#if holder_data.dob.year}} {{holder_data.dob.year}} {{/if}}
+           {{else}}
+            -
+           {{/if}}
+          </strong>
+         </td>
+        </tr>
+        <tr>
+         <td>Gender</td>
+         <td><strong>{{#if holder_data.gender}} {{toTitleCase holder_data.gender}} {{else}} - {{/if}}</strong></td>
+        </tr>
+        <tr>
+         <td>Nationality</td>
+         <td>
+          <strong>
+           {{#if holder_data.nationality}}
+            {{toCountryName holder_data.nationality}}
+            <img src="/images/flags/16/{{getCountryFlag holder_data.nationality}}.png">
+           {{else}}
+            -
+           {{/if}}
+          </strong>
+         </td>
+        </tr>
+        <tr>
+         <td>Issuing Country</td>
+         <td>
+          <strong>
+           {{#if document_data.issuing_country}}
+            {{toCountryName document_data.issuing_country}}
+            <img src="/images/flags/16/{{getCountryFlag document_data.issuing_country}}.png">            
+           {{else}}
+            -
+           {{/if}}
+          </strong>
+         </td>
+        </tr>
+        <tr>
+         <td>Issuing Date </td>
+         <td>
+          <strong>
+           {{#if document_data.issuing_date}}
+            {{#if document_data.issuing_date.day}} {{document_data.issuing_date.day}} / {{/if}}
+            {{#if document_data.issuing_date.month}} {{monthName document_data.issuing_date.month}} / {{/if}}
+            {{#if document_data.issuing_date.year}} {{document_data.issuing_date.year}} {{/if}}
+           {{else}}
+            -
+           {{/if}}
+          </strong>
+         </td>
+        </tr>
+        <tr>
+         <td>Expiry Date </td>
+         <td>
+          <strong>
+           {{#if document_data.expiry_date}}           
+            {{#if document_data.expiry_date.day}} {{document_data.expiry_date.day}} / {{/if}}
+            {{#if document_data.expiry_date.month}} {{monthName document_data.expiry_date.month}} / {{/if}}
+            {{#if document_data.expiry_date.year}} {{document_data.expiry_date.year}} {{/if}}
+           {{else}}
+            -
+           {{/if}}
+          </strong>
+         </td>
+        </tr>
+        <tr>
+         <td>MRZ Line 1</td>
+         <td><strong>{{#if document_data.mrz_line1}} <small>{{document_data.mrz_line1}}</small> {{else}} - {{/if}}</strong></td>         
+        </tr>
+        <tr>
+         <td>MRZ Line 2</td>
+         <td><strong>{{#if document_data.mrz_line2}} <small>{{document_data.mrz_line2}}</small> {{else}} - {{/if}}</strong></td>                  
+        </tr>
+        <tr>
+         <td>MRZ Line 3</td>
+         <td><strong>{{#if document_data.mrz_line3}} <small>{{document_data.mrz_line3}}</small>{{else}} - {{/if}}</strong></td>                  
+        </tr>
+       </table>
+      </div>
+
+      <div class="col-sm-6">
+       <h3>&nbsp;</h3>
+       <br>
+       <!-- <td><img class="img-rounded" height="220px" width="100%" src="data:image/png;{{toLowerCase extracted_images.[0].format}},{{extracted_images.[0].image_data}}"></td> -->
+       <!-- <td><img src="https://i.skyrock.net/5010/11425010/pics/575786517_small.jpg" class="img-rounded" width="100%" height="220px"></td>          -->
+       <div class="carouselEncodedImages">
+        {{#if ../extractedImages}}
+         {{#each ../extractedImages}} 
+          <div align="center">
+           <img class="img-rounded" style="max-width:100%!important;height:220px!important;"
+            src="data:{{content_type}};base64,{{content}}">
+          </div>
+         {{/each}}
+        {{else}}
+         <div>           
+          <img src="/images/brokenImage.png" class="img-responsive img-rounded">
+         </div> 
+        {{/if}}   
+       </div>
+
+      </div>
+     </div>
+    </div>
+   </div>
+   {{/with}}
+  </div>
+ </div>
+</template>

@@ -1,0 +1,24 @@
+<template name="login">
+ <div class="middle-box text-center loginscreen animated fadeInDown">
+  <div>
+   <div>
+    <h1 class="logo-name">
+     <img style="margin-top: 4px;" src="/images/ClearDil_Color.png" width="100%">
+    </h1>
+   </div>
+
+   <form class="m-t loginForm" role="form">
+    <div class="form-group">
+     <input type="email" name="email" class="form-control" placeholder="Username" required="" style="border-radius:5px;">
+    </div>
+    <div class="form-group">
+     <input type="password" name="password" class="form-control password" placeholder="Password" required="" style="border-radius:5px;">
+    </div>
+    <br>
+    <button type="submit" style="background-color:#328EEC;color:#fff" class="ladda-button btn block full-width m-b"
+     data-style="expand-right">Login</button>
+   </form>
+  </div>
+ </div>
+ {{> twoFAuthentication}}
+</template>

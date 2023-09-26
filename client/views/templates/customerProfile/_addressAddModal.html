@@ -1,0 +1,103 @@
+<template name="addressAddModal">
+ <div class="modal inmodal fade" id="addressAddModal" tabindex="-1" style="overflow:auto;" role="dialog"  aria-hidden="true"
+ data-backdrop="false">
+   <div class="modal-dialog">
+    <div class="modal-content">
+     <div class="modal-header">
+      <h5 class="modal-title">
+       Add Address
+      </h5>
+     </div>
+     <div class="modal-body">
+        <div class="col-sm-12">
+         <dl class="dl-horizontal">             
+          
+          <!-- Property Number -->
+          <dt class="modal-header-label">Property Number</dt>
+          <dd>
+           <input type="text" class="form-control input-sm" id="newAddressPropertyNumber" placeholder="Property Number">
+          </dd>
+
+          <!-- Property Name -->
+          <dt class="modal-header-label">Property Name</dt>
+          <dd>
+           <input type="text" class="form-control input-sm" id="newAddressPropertyName" placeholder="Property Name">
+          </dd>
+
+          <!-- Address Line -->
+          <dt class="modal-header-label">Line<sup class="required">*</sup></dt>
+          <dd>
+           <input type="text" class="form-control input-sm" id="newAddressLine" placeholder="Line">
+          </dd>
+
+          <!-- Address Extra Line -->
+          <dt class="modal-header-label">Extra Line</dt>
+          <dd>
+           <input type="text" class="form-control input-sm" id="newAddressExtraLine" placeholder="Extra Line">
+          </dd>
+
+          <!-- Address City -->
+          <dt class="modal-header-label">City<sup class="required">*</sup></dt>
+          <dd>
+           <input type="text" class="form-control input-sm" id="newAddressCity" placeholder="City">
+          </dd>
+
+          <!-- Address Province -->
+          <dt class="modal-header-label">Province</dt>
+          <dd>
+           <input type="text" class="form-control input-sm" id="newAddressProvince" placeholder="Province">
+          </dd>
+
+          <!-- Address Postal Code -->
+          <dt class="modal-header-label">Postal Code<sup class="required">*</sup></dt>
+          <dd>
+           <input type="text" class="form-control input-sm" id="newAddressPostalCode" placeholder="Postal Code">
+          </dd>
+
+          <!-- Address Country -->
+          <dt class="modal-header-label">Country<sup class="required">*</sup></dt>
+          <dd>
+           <select id="newAddressCountry" class="form-control input-sm" style="margin-top: 1px;">
+            {{#each countries}}
+             <option  value="{{this.value}}">{{this.text}}</option>
+            {{/each}}
+           </select>
+          </dd>
+
+           <!-- Address Type-->
+           <dt class="modal-header-label">Type</dt>
+           <dd>
+            <select id="newAddressType" class="form-control input-sm" style="margin-top: 1px;">
+              {{#each addressTypeOptions}}
+              <option value="{{this.value}}">{{this.text}}</option>
+              {{/each}}
+            </select>
+           </dd>
+
+           <!-- Address Dates-->
+           <dt class="modal-header-label">Dates at Address</dt>
+           <dd>
+            <div id="newAddressDateRange">
+             <div class="input-daterange input-group" id="datepicker">
+              <input id="newAddressFromDate" class="form-control input-sm" placeholder="From Date" value=""/>
+              <span class="input-group-addon"></span>
+              <input id="newAddressToDate" class="form-control input-sm" placeholder="To Date" value=""/>
+             </div>
+            </div> 
+           </dd>
+
+          </dl>
+        </div>
+        <div align='center'><span id='newAddressValidationMessage' class="validation"></span></div>
+        <div class="row"> </div>
+     </div>
+
+     <div class="modal-footer">
+      <button type="button" class="btn btn-primary" id="saveNewAddress"><i class="fa fa-save"></i> Save</button>
+      <button type="button" class="btn btn-white" id="closeNewAddress">Close</button>      
+     </div>
+
+    </div>  
+   </div>
+  </div>
+</template>

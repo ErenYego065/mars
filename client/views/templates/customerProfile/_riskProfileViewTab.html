@@ -1,0 +1,46 @@
+<template name="riskProfileViewTab">
+ <div class="tab-pane" id="riskProfileViewTab">    
+  <table class="table table-striped">
+   <thead>
+    <tr>
+     <th>Risk</th>
+     <th>Score</th>
+    </tr>
+   </thead>
+   <tbody>
+    {{#with riskProfile}}
+     {{#with risk}}
+      {{> riskBreakdown riskFactor=overall title='Customer (Overall)' parent='true'}}      
+      {{> riskBreakdown riskFactor=country title='Country'}}      
+      {{> riskBreakdown riskFactor=watchlist title='Watchlist'}}
+      {{> riskBreakdown riskFactor=occupation title='Occupation'}}
+      {{> riskBreakdown riskFactor=political_exposure title='Political Exposure'}}
+      {{> riskBreakdown riskFactor=relative_or_close_associate title='Relationship'}}      
+     {{/with}}
+     {{#if last_trigger}}
+      <span>
+      <br>      
+       Last updated on <strong>{{dateConvert last_updated 'Do MMM YYYY HH:mm:ss'}}</strong> 
+       due to <strong>{{getTextFromValue last_trigger}}</strong>
+      </span>
+     {{/if}}
+    {{/with}}
+   </tbody>
+  </table>    
+  <!-- <div><canvas id="radarChart"></canvas></div> -->
+ </div>
+</template>
+
+<template name="riskBreakdown">
+  <tr>
+    {{#if parent}}<td>{{title}}</td>
+    {{else}}<td>{{title}}</td>{{/if}}
+    <td>
+      {{#if riskFactor}}
+      <span class="badge badge-{{toLowerCase riskFactor}}">{{toTitleCase riskFactor}}</span>
+      {{else}}
+      <span class="badge badge-plain">&nbsp;&nbsp; - &nbsp;&nbsp;</span>
+      {{/if}}
+    </td>
+  </tr>
+</template>

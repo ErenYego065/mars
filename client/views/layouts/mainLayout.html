@@ -1,0 +1,28 @@
+<template name="mainLayout">    
+ {{#if currentUser }}
+ <!-- Wrapper-->
+ <div id="wrapper">
+  <!-- Navigation -->
+  {{> navigation }}
+  <!-- Page wraper -->
+  <div id="page-wrapper" class="gray-bg">
+   <!-- Page wrapper -->
+   {{#unless isLive}}
+    <div class="alert alert-info alert-dismissable environmentNotification" 
+    style="font-size: 15px; background-color:#FFAA00; color:#fff;width:120%!important;margin-left:-20px!important; margin-top:-2px!important;">
+     <!-- <button aria-hidden="true" data-dismiss="alert" class="close" type="button" style="color:#fff!important;">×</button> -->
+     You are currently in <strong>Test</strong> mode with limited access to our datasets and services.
+    </div>
+   {{/unless}}
+
+   {{> topNavbar }}
+   <!-- Main view  -->
+   {{>Template.dynamic template=content}}
+   <!-- Footer -->
+   <!-- {{> footer }} -->
+  </div>
+  <!-- {{> rightSidebar customer=customerDetails}} -->
+ </div>
+ <!-- End wrapper-->
+ {{/if}}
+</template>

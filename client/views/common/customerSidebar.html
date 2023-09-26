@@ -1,0 +1,65 @@
+<template name="customerSidebar">
+ <div id="right-sidebar">
+  <div class="sidebar-container">
+   {{#if customerDetails}}
+   
+   <ul class="nav">
+    <li class="active">
+     <a>
+      Customer Snippet
+     </a>
+    </li>
+   </ul>
+
+   <br>
+    <table>
+     <tr>
+      <td style="padding-left:10px;">First Name</td>
+      <td style="padding-left:10px;padding-top: 5px;"><strong>{{customerDetails.first_name}}</strong></td>     
+     </tr>
+     <tr>
+       <td style="padding-left:10px;">Middle Name &nbsp;&nbsp;</td>       
+      {{#if customerDetails.middle_name}}
+       <td style="padding-left:10px;padding-top: 5px;"><strong>{{customerDetails.middle_name}}</strong></td>
+      {{else}}
+        <td style="padding-left:10px;padding-top: 5px;"><strong>---</strong></td>    
+      {{/if}}   
+     </tr>
+     <tr>
+      <td style="padding-left:10px;">Last Name</td>
+      <td style="padding-left:10px;padding-top: 5px;"><strong>{{customerDetails.last_name}}</strong></td>     
+     </tr>
+     <tr>
+      <td style="padding-left:10px;padding-top: 5px;">DOB</td>
+      {{#if customerDetails.dob}}
+        <td style="padding-left:10px;padding-top: 5px;"><strong>{{customerDetails.dob}}</strong></td>
+      {{else}}
+        <td style="padding-left:10px;padding-top: 5px;"><strong>---</strong></td>    
+      {{/if}}
+     </tr>
+     <tr>
+      <td style="padding-left:10px;">Email</td>
+      <td style="padding-left:10px;padding-top: 5px;"><strong>{{customerDetails.email}}</strong></td>     
+     </tr>
+     <tr>
+      <td style="padding-left:10px;padding-top: 5px;">Gender</td>
+      {{#if customerDetails.gender}}
+        <td style="padding-left:10px;padding-top: 5px;"><strong>{{toTitleCase customerDetails.gender}}</strong></td>
+      {{else}}
+        <td style="padding-left:10px;padding-top: 5px;"><strong>---</strong></td>    
+      {{/if}}
+     </tr>
+     <tr>
+      <td style="padding-left:10px;padding-top: 5px;">Nationality</td>
+      {{#if customerDetails.nationality}}
+        <td style="padding-left:10px;padding-top: 5px;"><strong>{{toCountryName customerDetails.nationality}}</strong></td>
+      {{else}}
+        <td style="padding-left:10px;padding-top: 5px;"><strong>---</strong></td>    
+      {{/if}}
+     </tr>
+    </table>
+
+   {{/if}}
+  </div>
+ </div>
+</template>

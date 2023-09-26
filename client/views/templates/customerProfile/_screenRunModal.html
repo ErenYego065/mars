@@ -1,0 +1,68 @@
+<template name="screenRunModal">
+ <div class="modal inmodal fade" id="screenRunModal" tabindex="-1" role="dialog"  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+   <div class="modal-content">
+    <div class="modal-header">
+     <button type="button" class="close" data-dismiss="modal">
+     </button>
+     <h4 class="modal-title">Select Scope</h4>
+    </div>
+    <div class="modal-body" align="left">
+
+     <div class="cc-selector">
+      <div class="clearfix float-my-children">
+       <input id="watchlist" type="checkbox" name="watchlist" value="watchlist" style="padding-left:50px;"/>
+       <label class="check-cc watchlist" for="watchlist" style="vertical-align:middle;"></label>
+       <label for="watchlist" style="font-size: 15px;" data-container="body" 
+        data-trigger="hover" data-toggle="popover" data-placement="bottom" class="popover-label"
+        data-content="Screen your customer against our global sanctions watchlist database.">
+        Global Watchlist Screening
+       </label>
+      </div>
+
+      <hr style="margin: 10px 10px 10px 10px;">
+      <div class="clearfix float-my-children">
+       <input id="pep" type="checkbox" name="pep" value="pep" style="padding-left:50px;" />
+       <label class="check-cc pep" for="pep" style="vertical-align:middle;"></label>
+       <label for="pep" style="font-size: 15px;" data-container="body" 
+        data-trigger="hover" data-toggle="popover" data-placement="bottom" class="popover-label"
+        data-content="Screen your customer against our Politically Exposed Persons (PEP) database.">
+        Politically Exposed Person Screening
+       </label>
+      </div>
+
+      <hr style="margin: 10px 10px 10px 10px;">
+      <div class="clearfix float-my-children">
+       <input id="adverseMedia" type="checkbox" name="adverseMedia" value="adverseMedia" style="padding-left:50px;" />
+       <label class="check-cc adverseMedia" for="adverseMedia" style="vertical-align:middle;"></label>
+       <label for="adverseMedia" style="font-size: 15px;" data-container="body" 
+        data-trigger="hover" data-toggle="popover" data-placement="bottom" class="popover-label"
+        data-content="Screen your customer against our Adverse Media database.">
+        Adverse Media Screening
+       </label>
+      </div>
+
+      <hr style="margin: 10px 10px 10px 10px;">
+      <div class="clearfix float-my-children">
+       <input id="disqualifiedDirector" type="checkbox" name="disqualifiedDirector" value="disqualifiedDirector" style="padding-left:50px;" />
+       <label class="check-cc disqualifiedDirector" for="disqualifiedDirector" style="vertical-align:middle;"></label>
+       <label for="disqualifiedDirector" style="font-size: 15px;" data-container="body" 
+        data-trigger="hover" data-toggle="popover" data-placement="bottom" class="popover-label"
+        data-content="Screen your customer against our Disqualified Entities database.">
+        Disqualified Entities Screening
+       </label>
+      </div>
+
+     </div>
+
+    </div> 
+
+    <div class="modal-footer">
+     <button type="button" class="btn btn-primary startScreening" disabled><i class="fa fa-search"></i> Run Screening</button>               
+     <button type="button" class="btn btn-white closeScreening">Close</button>
+    </div>
+
+   </div>
+  </div>
+ </div> 
+</template>  

@@ -1,0 +1,234 @@
+<!--
+ Displays the view / edit address  modal on the customer profile page.
+-->
+<template name="documentViewModal">
+ <div class="modal inmodal fade ibox" id="documentViewModal" tabindex="-1" style="overflow:auto;" role="dialog"  aria-hidden="true"
+  data-backdrop="false">
+  <div class="modal-dialog ibox-content">
+   <!-- Loading spinners -->
+   <div class="sk-spinner sk-spinner-double-bounce">
+    <div class="sk-double-bounce1 "></div>
+    <div class="sk-double-bounce2"></div>
+   </div>
+
+   {{#each document}}
+   <div class="modal-content">
+    <div class="modal-header">
+     <h5 class="modal-title">
+      {{#if editingDocument}}
+       Edit Document
+      {{else}}
+       Document Details
+      {{/if}}
+     </h5>
+    </div>
+    <div class="modal-body">
+     <div class="row">
+      <div class="col-sm-12">
+       <dl class="dl-horizontal">      
+        
+        <dt style="color:black;font-weight: normal">ID</dt>
+        <dd>
+         <label>
+          <small>{{id}}</small>
+         </label>
+        </dd>
+       
+        <dt style="color:black;font-weight: normal">Updated on</dt>
+        <dd>
+         <label>
+          <small>{{dateConvert updated_at 'Do MMM YYYY HH:mm:ss'}}</small>
+         </label>
+        </dd>
+
+        <!-- Document Type -->
+        <dt style="color:black;font-weight: normal">Document Type</dt>
+        <dd>
+         {{#if editingDocument}}
+          {{#if isVerified}}
+           <select id="newDocumentType" class="form-control input-sm" disabled>
+           {{#each documentTypeOptions}}
+             <option  value="{{this.value}}" {{isSelected this.value ../type}}>{{this.text}}</option>
+           {{/each}}
+           </select>
+          {{else}}
+           <select id="newDocumentType" class="form-control input-sm">
+           {{#each documentTypeOptions}}
+             <option  value="{{this.value}}" {{isSelected this.value ../type}}>{{this.text}}</option>
+           {{/each}}
+           </select>
+          {{/if}}
+         {{else}}
+           {{#if type}}
+           <label id="documentType" class="modal-label" type="text">{{toTitleCase type}}</label>
+           {{else}}
+           {{empty}}
+           {{/if}}
+         {{/if}}
+        </dd>
+
+        <!-- Document Number -->
+        <dt style="color:black;font-weight: normal">Document Number</dt>
+        <dd>
+         {{#if editingDocument}}
+          <input type="text" class="form-control input-sm" id="newDocumentNumber" value="{{document_number}}"
+          placeholder="Document Number">
+         {{else}}
+          <label id="documentNumber" class="modal-label" type="text" >{{emptyIfNull document_number}}</label>
+         {{/if}}
+        </dd>
+        
+        <!-- Document Name -->
+        <dt style="color:black;font-weight: normal">Document Name</dt>
+        <dd>
+         {{#if editingDocument}}
+          <input type="text" class="form-control input-sm" id="newDocumentName" value="{{document_name}}"
+          placeholder="Document Name">
+         {{else}}
+          <label id="documentName" class="modal-label" type="text" >{{emptyIfNull document_name}}</label>
+         {{/if}}
+        </dd>
+
+        <!-- Issuing Country -->
+        <dt style="color:black;font-weight: normal">Issuing Country</dt>
+        <dd>
+         {{#if editingDocument}}
+          <select id="newDocumentIssuingCountry" class="form-control input-sm">
+           {{#each countries}}
+            <option  value="{{this.value}}" {{isSelected this.value ../issuing_country}}>{{this.text}}</option>
+           {{/each}}
+          </select>
+         {{else}}
+          {{#if issuing_country}}
+           <label id="documentIssuingCountry" class="modal-label" >{{toCountryName issuing_country}}</label>
+           <img src="/images/flags/16/{{getCountryFlag issuing_country}}.png">
+          {{else}}
+           {{empty}}
+          {{/if}}
+         {{/if}}
+        </dd>
+
+        <!-- Issuing Authority -->
+        <dt style="color:black;font-weight: normal">Issuing Authority</dt>
+        <dd>
+         {{#if editingDocument}}
+          <input type="text" class="form-control input-sm" id="newDocumentIssuingAuthority" value="{{issuing_authority}}"
+          placeholder="Issuing Authority">
+         {{else}}
+          <label id="issuingAuthority" type="text" class="modal-label">{{emptyIfNull issuing_authority}}</label>
+         {{/if}}
+        </dd>
+
+        <!-- Validity Dates (i.e. expiry and issue dates)-->
+        <dt class="modal-header-label">Validity</dt>
+        <dd>
+         <div id="documentDateRange" style="display: none;">
+          <div class="input-daterange input-group" id="datepicker">
+           <input id="documentIssueDate" class="form-control input-sm" value="{{dateConvert issue_date 'DD/MM/YYYY'}}"
+           placeholder="Issue Date"/>
+           <span class="input-group-addon"></span>
+           <input id="documentExpiryDate" class="form-control input-sm" value="{{dateConvert expiry_date 'DD/MM/YYYY'}}"
+           placeholder="Expiry Date"/>
+          </div>
+         </div> 
+         {{#unless editingDocument}}
+          <label class="modal-label" type="text">
+           {{#if issue_date}}
+            {{dateConvert issue_date 'Do MMM YYYY'}}
+           {{else}}
+            {{empty}}
+           {{/if}}
+           to
+           {{#if expiry_date}}
+            {{dateConvert expiry_date 'Do MMM YYYY'}}
+           {{else}}
+            {{empty}}
+           {{/if}}
+          </label>
+         {{/unless}}
+        </dd>
+        
+        <!-- MRZ Line 1 -->
+        <dt style="color:black;font-weight: normal">MRZ Line 1</dt>
+        <dd>
+         {{#if editingDocument}}
+          <input type="text" class="form-control input-sm" id="newDocumentMrzLine1" value="{{mrz_line1}}"
+          placeholder="MRZ Line 1">
+         {{else}}
+          <label id="mrzLine1" type="text" class="modal-label">{{emptyIfNull mrz_line1}}</label>
+         {{/if}}
+        </dd>
+
+        <!-- MRZ Line 2 -->
+        <dt style="color:black;font-weight: normal">MRZ Line 2</dt>
+        <dd>
+         {{#if editingDocument}}
+          <input type="text" class="form-control input-sm" id="newDocumentMrzLine2" value="{{mrz_line2}}"
+          placeholder="MRZ Line 2">
+         {{else}}
+          <label id="mrzLine2" type="text" class="modal-label">{{emptyIfNull mrz_line2}}</label>
+         {{/if}}
+        </dd>
+
+        <!-- MRZ Line 3 -->
+        <dt style="color:black;font-weight: normal">MRZ Line 3</dt>
+        <dd>
+         {{#if editingDocument}}
+          <input type="text" class="form-control input-sm" id="newDocumentMrzLine3" value="{{mrz_line3}}"
+          placeholder="MRZ Line 3">
+         {{else}}
+          <label id="mrzLine3" type="text" class="modal-label">{{emptyIfNull mrz_line3}}</label>
+         {{/if}}
+        </dd>
+        
+        <!-- Description-->
+        <dt style="color:black;font-weight: normal">Description</dt>
+        <dd>
+         {{#if editingDocument}}
+          <input type="text" class="form-control input-sm" id="newDocumentDescription" value="{{document_description}}"
+          placeholder="Description">
+         {{else}}
+          <label id="description" type="text" class="modal-label">{{emptyIfNull document_description}}</label>
+         {{/if}}
+        </dd>   
+
+        <dt style="color:black;font-weight: normal">Attachments</dt>
+        {{#if front_side}}
+         <dd>
+          <a id='downloadFrontSide' disabled>
+           <i class="fa fa-file"></i> {{front_side}} 
+          </a>
+         </dd>
+        {{/if}}
+
+        {{#if back_side}}
+         <dd>
+          <a id='downloadBackSide'>
+           <i class="fa fa-file"></i> {{back_side}} 
+          </a>
+         </dd>
+        {{/if}}
+
+        {{#if and front_side back_side}}
+         <dd>
+          {{empty}}      
+         </dd>
+        {{/if}}       
+       
+       </dl>
+      </div>
+     </div>
+     <div align='center'><span id='documentValidationMessage' class="validation"></span></div>
+    </div>
+
+    <div class="modal-footer">
+     <button type="button" class="btn btn-primary" id="saveDocument"><i class="fa fa-save"></i> Save</button>
+     <button type="button" class="btn btn-primary"  id="editDocument"><i class="fa fa-edit"></i> Edit</button>     
+     <button type="button" class="btn btn-white" id="closeDocument" data-dismiss="modal">Close</button>
+     <button type="button" class="btn btn-white" id="cancelDocument"><i class="fa fa-times"></i> Cancel</button>
+    </div>
+   </div>  
+  {{/each}}
+  </div>
+ </div>
+</template>

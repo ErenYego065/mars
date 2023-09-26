@@ -1,0 +1,31 @@
+<template name="caseAttachments">
+ <div class="tab-pane" id="caseAttachments">
+   <div class="tab-content">     
+     {{#if attachments}}  
+     <table class="table table-striped">
+     <thead>
+       <tr>
+       <th>File Name</th>
+       <th>Date Added</th>
+       </tr>
+     </thead>
+     <tbody>
+       {{#each attachments}}
+       <tr>
+         {{#if name}}
+         <td>
+           <a> <i class="fa fa-file"></i> {{name}}</a>
+         </td>{{else}}<td align="center">-</td>{{/if}}
+         
+          {{#if created_at}}<td>{{dateConvert created_at 'Do MMM YYYY HH:mm:ss'}}</td>{{else}}<td align="center">-</td>{{/if}}
+       </tr>
+       {{/each}}
+     </tbody>
+     </table>   
+   {{else}}
+     No attachments available.
+   {{/if}}
+   
+   </div>
+ </div> 
+</template>

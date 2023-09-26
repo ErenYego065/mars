@@ -1,0 +1,320 @@
+<template name="companyDetails">
+ <!-- Company details section -->
+ <div class="row">
+  <div class="col-sm-12">                    
+   <table style="width:100%">
+    <tr>
+     <td align="left"> 
+      <h1>
+       {{company_name}} 
+       <span class="badge badge-info">{{toTitleCase type}}</span>
+      </h1>
+     </td>
+     <!-- <td align="right" style="vertical-align:centre">
+      <small>ID <strong>{{id}}</strong></small>   
+      <br/>
+      <small>Last updated on <strong>{{dateConvert updated_at 'DD/MM/YYYY HH:mm:ss'}}&nbsp;</strong></small>                              
+     </td> -->
+    </tr>
+   </table>        
+  </div>
+ </div>
+ <div class="row">
+  <div class="col-sm-12">
+   {{#with customerDetails}}
+   <dl class="dl-horizontal">
+        
+    <!-- Company Name -->
+    <dt style="font-weight: normal">Company Name</dt>
+    <dd>
+     {{#if hasChecks}}
+      <td><label type="text">{{company_name}}</label></td>
+     {{else}}
+      {{#if editingCompanyName}}
+       <td>
+        <input id="newCompanyName" type="text" class="text-edit" data-attribute="company_name" 
+        autocorrect="off" autocapitalize="off" spellcheck="false" value="{{company_name}}" autofocus >
+       </td>
+       <td>
+        <button id="saveCompanyName" class="btn btn-primary editable-button" type="button"><i class="fa fa-check"></i></button>
+        <button id="cancelChange" class="btn btn-default editable-button" type="button"><i class="fa fa-times"></i></button>
+       </td>
+       {{#if validationMessage}}
+        <span style="display:inline-block" class="validation">{{validationMessage}}</span>
+       {{/if}}
+      {{else}}
+       <td><label id="companyName" type="text" class="text-editable">{{company_name}}</label></td>
+      {{/if}}
+     {{/if}}
+    </dd>
+
+    <!-- Email name -->
+    <dt style="font-weight: normal">Email</dt>
+    <dd>
+    {{#if editingEmail}}
+      <td>
+        <input id="newEmail" type="text" class="text-edit" data-attribute="email" 
+        autocorrect="off" autocapitalize="off" spellcheck="false" value="{{email}}" autofocus>
+      </td>
+      <td>
+        <button id="saveEmail" class="btn btn-primary editable-button" type="button"><i class="fa fa-check"></i></button>
+        <button id="cancelChange" class="btn btn-default editable-button" type="button"><i class="fa fa-times"></i></button>
+      </td>
+      {{#if validationMessage}}
+        <span style="display:inline-block" class="validation">{{validationMessage}}</span>
+      {{/if}}
+    {{else}}
+      <td><label id="email" type="text" class="text-editable">{{emptyIfNull email}}</label></td>
+    {{/if}}
+    </dd>
+
+    <!-- Incorporation Number -->
+    <dt style="font-weight: normal">Incorporation Number</dt>
+    <dd>
+    {{#if editingIncorporationNumber}}
+      <td>
+       <input id="newIncorporationNumber" type="text" class="text-edit" data-attribute="incorporation_number" 
+       autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false" value="{{incorporation_number}}" autofocus>
+      </td>
+      <td>
+       <button id="saveIncorporationNumber" class="btn btn-primary editable-button" type="button"><i class="fa fa-check"></i></button>
+       <button id="cancelChange" class="btn btn-default editable-button" type="button"><i class="fa fa-times"></i></button>
+      </td>
+      {{#if validationMessage}}
+        <span style="display:inline-block" class="validation">{{validationMessage}}</span>
+      {{/if}}
+    {{else}}
+     <td><label id="incorporationNumber" type="text" class="text-editable">{{emptyIfNull incorporation_number}}</label></td>
+    {{/if}}
+    </dd>
+
+    <!-- Incorporation Type -->
+    <dt style="font-weight: normal">Incorporation Type</dt>
+    <dd>
+    {{#if editingIncorporationType}}
+      <td>
+      <select class="edit-select" id="newIncorporationType" data-attribute="incorporation_type">
+        {{#each incorporationTypeOptions}}
+         <option  value="{{this.value}}" {{isSelected this.value ../incorporation_type}}>{{this.text}}</option>
+        {{/each}}
+       </select>
+      </td>
+      <td>
+       <button id="saveIncorporationType" class="btn btn-primary editable-button" type="button"><i class="fa fa-check"></i></button>
+       <button id="cancelChange" class="btn btn-default editable-button" type="button"><i class="fa fa-times"></i></button>
+      </td>
+      {{#if validationMessage}}
+        <span style="display:inline-block" class="validation">{{validationMessage}}</span>
+      {{/if}}
+    {{else}}
+     <td>
+      <label id="incorporationType" type="text" class="text-editable">
+       {{#if incorporation_type}}
+        {{toTitleCase incorporation_type}}
+       {{else}}
+        {{empty}}
+       {{/if}}
+      </label>
+     </td>
+    {{/if}}
+    </dd>
+
+    <!-- Incorporation Country -->
+    <dt style="font-weight: normal">Incorporation Country</dt>
+    <dd>
+    {{#if editingIncorporationCountry}}
+      <td>
+       <select class="edit-select" id="newIncorporationCountry" data-attribute="incorporation_country">
+        {{#each countries}}
+         <option  value="{{this.value}}" {{isSelected this.value ../incorporation_country}}>{{this.text}}</option>
+        {{/each}}
+       </select>
+      </td>
+      <td>
+       <button id="saveIncorporationCountry" class="btn btn-primary editable-button" type="button"><i class="fa fa-check"></i></button>
+       <button id="cancelChange" class="btn btn-default editable-button" type="button"><i class="fa fa-times"></i></button>
+      </td>
+      {{#if validationMessage}}
+        <span style="display:inline-block" class="validation">{{validationMessage}}</span>
+      {{/if}}
+    {{else}}
+     <td>
+      <label id="incorporationCountry" type="text" class="text-editable">
+       {{#if incorporation_country}}
+        {{toCountryName incorporation_country}}
+       {{else}}
+        {{empty}}
+       {{/if}}
+     </label>
+     {{#if incorporation_country}}<img src="/images/flags/16/{{getCountryFlag incorporation_country}}.png">{{/if}}     
+     </td>
+    {{/if}}
+    </dd>
+
+    <!-- Business Purpose -->
+    <dt style="font-weight: normal">Business Purpose</dt>
+    <dd>
+    {{#if editingBusinessPurpose}}
+      <td>
+       <select class="edit-select" id="newBusinessPurpose" data-attribute="business_purpose">
+        {{#each businessPurposeOptions}}
+         <option  value="{{this.value}}" {{isSelected this.value ../business_purpose}}>{{this.text}}</option>
+        {{/each}}
+       </select>
+      </td>
+      <td>
+       <button id="saveBusinessPurpose" class="btn btn-primary editable-button" type="button"><i class="fa fa-check"></i></button>
+       <button id="cancelChange" class="btn btn-default editable-button" type="button"><i class="fa fa-times"></i></button>
+      </td>
+      {{#if validationMessage}}
+        <span style="display:inline-block" class="validation">{{validationMessage}}</span>
+      {{/if}}
+    {{else}}
+     <td>
+      <label id="businessPurpose" type="text" class="text-editable">
+       {{#if business_purpose}}
+        {{toTitleCase business_purpose}}
+       {{else}}
+        {{empty}}
+       {{/if}}
+     </label>
+     </td>
+    {{/if}}
+    </dd>
+
+    <!-- Mobile -->
+    <dt style="font-weight: normal">Mobile</dt>
+    <dd>
+    {{#if editingMobile}}
+      <td>
+       <input id="newMobile" type="text" class="text-edit" data-attribute="mobile" 
+       autocorrect="off" autocapitalize="off" spellcheck="false" value="{{mobile}}" autofocus>
+      </td>
+      <td>
+       <button id="saveMobile" class="btn btn-primary editable-button" type="button"><i class="fa fa-check"></i></button>
+       <button id="cancelChange" class="btn btn-default editable-button" type="button"><i class="fa fa-times"></i></button>
+      </td>
+      {{#if validationMessage}}
+        <span style="display:inline-block" class="validation">{{validationMessage}}</span>
+      {{/if}}
+    {{else}}
+     <td><label id="mobile" type="text" class="text-editable">{{emptyIfNull mobile}}</label></td>
+    {{/if}}
+    </dd>
+ 
+    <!-- Telephone -->
+    <dt style="font-weight: normal">Telephone</dt>
+    <dd>
+    {{#if editingTelephone}}
+      <td>
+       <input id="newTelephone" type="text" class="text-edit" data-attribute="telephone" 
+       autocorrect="off" autocapitalize="off" spellcheck="false" value="{{telephone}}" autofocus>
+      </td>
+      <td>
+       <button id="saveTelephone" class="btn btn-primary editable-button" type="button"><i class="fa fa-check"></i></button>
+       <button id="cancelChange" class="btn btn-default editable-button" type="button"><i class="fa fa-times"></i></button>
+      </td>
+      {{#if validationMessage}}
+        <span style="display:inline-block" class="validation">{{validationMessage}}</span>
+      {{/if}}
+    {{else}}
+     <td><label id="telephone" type="text" class="text-editable">{{emptyIfNull telephone}}</label></td>
+    {{/if}}
+    </dd>
+
+    <!-- Primary Contact Name  -->
+    <dt style="font-weight: normal">Primary Contact Name</dt>
+    <dd>
+    {{#if editingPrimaryContactName}}
+      <td>
+        <input id="newPrimaryContactName" type="text" class="text-edit" data-attribute="primary_contact_name" 
+        autocorrect="off" autocapitalize="off" spellcheck="false" value="{{primary_contact_name}}" autofocus>
+      </td>
+      <td>
+        <button id="savePrimaryContactName" class="btn btn-primary editable-button" type="button"><i class="fa fa-check"></i></button>
+        <button id="cancelChange" class="btn btn-default editable-button" type="button"><i class="fa fa-times"></i></button>
+      </td>
+      {{#if validationMessage}}
+        <span style="display:inline-block" class="validation">{{validationMessage}}</span>
+      {{/if}}
+    {{else}}
+      <td><label id="primaryContactName" type="text" class="text-editable">{{emptyIfNull primary_contact_name}}</label></td>
+    {{/if}}
+    </dd>
+
+    <!-- Primary Contact Email  -->
+    <dt style="font-weight: normal">Primary Contact Email</dt>
+    <dd>
+    {{#if editingPrimaryContactEmail}}
+      <td>
+        <input id="newPrimaryContactEmail" type="text" class="text-edit" data-attribute="primary_contact_email" 
+        autocorrect="off" autocapitalize="off" spellcheck="false" value="{{primary_contact_email}}" autofocus>
+      </td>
+      <td>
+        <button id="savePrimaryContactEmail" class="btn btn-primary editable-button" type="button"><i class="fa fa-check"></i></button>
+        <button id="cancelChange" class="btn btn-default editable-button" type="button"><i class="fa fa-times"></i></button>
+      </td>
+      {{#if validationMessage}}
+        <span style="display:inline-block" class="validation">{{validationMessage}}</span>
+      {{/if}}
+    {{else}}
+      <td><label id="primaryContactEmail" type="text" class="text-editable">{{emptyIfNull primary_contact_email}}</label></td>
+    {{/if}}
+    </dd>
+
+    <!-- Risk profile -->
+    {{#with riskProfile}}
+    
+     <!-- Customer classification -->
+     <dt style="font-weight: normal">Customer Classification</dt>
+     <dd>
+      {{#with profile}}    
+       {{#if watchlist_entity}}
+        <span class="badge badge-danger">Watchlist Entity</span>
+       {{/if}}
+        
+       {{#if politically_exposed }}
+        <span class="badge badge-danger">Politicially Exposed Entity</span>
+       {{/if}}
+
+       {{#if disqualified_entity}}
+        <span class="badge badge-danger">Disqualified Entity</span>
+       {{/if}}
+
+       {{#if adverse_media_exposed}}
+        <span class="badge badge-danger">Adverse Media Entity</span>
+       {{/if}}
+
+       {{#if relative_or_close_associate}}
+        <span class="badge badge-danger">Relative or Close Associate</span>
+       {{/if}} 
+
+       {{#if and watchlist_entity politically_exposed relative_or_close_associate disqualified_entity adverse_media_exposed}}
+        <span class="badge badge-standard">Standard Customer</span>
+       {{/if}} 
+      {{/with}}
+     </dd>
+
+     <dt style="font-weight: normal">Customer Risk</dt>
+     <dd>
+      {{#with risk}}
+       {{#if overall}}
+        <span class="badge badge-{{toLowerCase overall}}">{{toTitleCase overall}}</span>
+        <!-- &nbsp;
+        {{#if riskBreakdownShownFlag}}
+          (<a class="hideRiskBreakdown">hide breakdown</a>)          
+        {{else}}
+          (<a class="showRiskBreakdown">view breakdown</a>)      
+        {{/if}} -->
+       {{else}}
+        <span class="badge badge-plain">&nbsp;&nbsp; - &nbsp;&nbsp;</span>
+       {{/if}}
+      {{/with}}
+     </dd>
+
+    {{/with}}
+    </dl>
+   {{/with}}
+  </div>
+ </div> 
+</template>

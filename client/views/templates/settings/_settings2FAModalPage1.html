@@ -1,0 +1,55 @@
+<template name="settings2FAModalPage1">
+ <div class="modal inmodal fade" id="settings2FAModalPage1" tabindex="-1" style="overflow:auto;" role="dialog"
+  aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog">
+   <div class="modal-content">
+    <div class="modal-content">
+     <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal"></button>
+      <h4 class="modal-title">Set up Authenticator</h4>
+     </div>
+     <div class="modal-body" align="left">
+      <div class="row">
+       <div class="col-sm-4">
+        <h3> Step 1</h3>
+       </div>
+       <div class="col-sm-8" style="padding-top:2px;">
+        Install the Authenticator App from the <a target="_blank" href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en">App
+         Store</a>
+        or <a target="_blank" href="https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8">Play
+         Store</a>.
+       </div>
+      </div>
+      <br>
+      <div class="row">
+       <div class="col-sm-4">
+        <h3> Step 2</h3>
+       </div>
+       <div class="col-sm-8" style="padding-top:2px;">
+        In the App, select add account.
+       </div>
+      </div>
+      <br>
+      <div class="row">
+       <div class="col-sm-4">
+        <h3> Step 3</h3>
+       </div>
+       <div class="col-sm-8" style="padding-top:2px;">
+        Choose to scan a barcode or alternatively copy this code - <strong><span id="key"></span></strong>
+        <br><br>
+        <form>
+         <div id="qrcode"></div>
+        </form>
+       </div>
+      </div>
+     </div>
+     <div class="modal-footer">
+      <button type="button" class="btn btn-primary modalProgressButton" id="inputAuthenticationCode"><i class="fa fa-next"></i>Next</button>
+      <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+     </div>
+    </div>
+   </div>
+
+  </div>
+ </div>
+</template>

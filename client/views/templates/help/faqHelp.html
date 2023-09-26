@@ -1,0 +1,44 @@
+<template name="faqHelp">
+ {{> pageHeading title='Frequently Asked Questions' parent='Help' category='FAQ'}}
+ <div class="wrapper wrapper-content animated fadeInRight">
+  <div class="text-center p-lg">
+   <h2>If you don't find the answer to your question please <a href="/faqContact" style="color:#324157"> contact us</a>.</h2>
+  </div>
+ 
+  <div class="cc-selector" align="center">
+   <div class="col-md-4"> 
+    <input id="services" type="radio" name="billing" value="services" checked/>
+    <label class="help-cc services" for="services"></label>
+    <br>
+    <label for="services" style="font-size: 14px;" class="help-label">Services</label>     
+   </div>
+
+   <div class="col-md-4">      
+    <input id="billing" type="radio" name="billing" value="billing" />
+    <label class="help-cc billing" for="billing"></label>
+    <br>     
+    <label for="billing" style="font-size: 14px;" class="help-label">Accounts & Billing</label>          
+   </div>
+
+   <div class="col-md-4">      
+    <input id="security" type="radio" name="billing" value="security" />
+    <label class="help-cc security" for="security"></label>
+    <br>
+    <label for="security" style="font-size: 14px;" class="help-label"> Data & Security</label>              
+   </div>
+   <br><br><br><br><br><br>
+  </div>
+  <br><br><br><br>
+
+  {{#if isServices}}
+   {{>faqHelpServices}}
+  {{else}}
+   {{#if isBilling}}
+    {{>faqHelpBilling}}
+   {{else}}
+    {{>faqHelpSecurity}}
+   {{/if}}
+  {{/if}}
+  
+ </div>
+</template>

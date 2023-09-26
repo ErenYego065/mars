@@ -1,0 +1,29 @@
+<template name="matchAddressTab">
+ <div id="addressTab" class="tab-pane active">
+  <br>
+
+  {{#if addresses}}  
+   <table class="table table-striped">
+    <thead>
+     <tr>
+      <th>Line</th>
+      <th>City</th>
+      <th>Country</th>
+     </tr>
+    </thead>
+    <tbody>
+     {{#each addresses}}
+      <tr>
+       {{#if line}}<td>{{line}}</td>{{else}}<td align="center">-</td>{{/if}}
+       {{#if city}}<td>{{city}}</td>{{else}}<td align="center">-</td>{{/if}}
+       {{#if country}}<td>{{toCountryName country}}</td>{{else}}<td align="center">-</td>{{/if}}
+      </tr>
+     {{/each}}
+    </tbody>
+   </table>   
+  {{else}}
+   No address available.
+  {{/if}}
+  
+ </div>  
+</template>

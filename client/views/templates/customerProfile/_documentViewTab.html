@@ -1,0 +1,106 @@
+<template name="documentViewTab">
+ <div class="tab-pane" id="documentViewTab">
+  {{#if documents}} 
+   <table class="table table-striped">
+    <thead>
+     <tr>
+      <th></th>
+      <th>Type</th>
+      <!-- <th>Created</th> -->
+      <th>Description</th>
+      <th style="text-align: right;"> 
+       <button class="btn btn-plain btn-xs addDocument" type="button" data-toggle="modal" 
+        data-target="#documentAddModal">
+       <i class="fa fa-plus"></i> Add </button>
+      </th>
+     </tr>
+    </thead>
+    <tbody>
+     {{#each documents}}
+      <tr>
+       <td>
+        {{#with documentVerificationResult id}}
+         <!-- <label style="font-size: 15px;" data-container="body" 
+         data-trigger="hover" data-toggle="popover" data-placement="bottom" class="popover-label"
+         data-content={{result}}> <i class="fa fa-{{resultIcon}} fa-lg" style="color:{{resultIconColor}};"></i>
+         </label> -->
+         <label style="font-size: 15px;" data-container="body">
+          <i class="fa fa-{{resultIcon}} fa-lg" style="color:{{resultIconColor}};" title='{{result}}'></i>
+         </label>
+         &nbsp;
+         <a href='/customers/{{customerId}}/verifications/{{docVerificationId}}' title='Breakdown'><i class="fa fa-list fa-lg" style="color:grey;"></i></a>
+         <!-- <a href='/verifications?document_id={{../id}}' title='Details'><i class="fa fa-list fa-lg" style="color:grey;"></i></a>          -->
+        {{/with}}
+       </td>
+      
+       <td>
+        <small>{{toTitleCase type}}</small>
+       </td>
+
+       <!-- <td>{{dateConvert created_at 'DD/MM/YYYY'}}</td> -->
+
+       <td>
+        <small>{{emptyIfNull document_description}}</small>
+       </td>
+
+       <td class="tabular-grid">
+        {{#if isDocVerified id}}
+          <button class="btn btn-primary btn-xs editDocument" type="button" data-toggle="modal" 
+          data-id={{id}} data-type={{type}} data-name={{document_name}}
+          data-description={{document_description}} data-number={{document_number}}
+          data-issuer={{issuing_country}} data-authority={{issuing_authority}}
+          data-from={{issue_date}} data-to={{expiry_date}} data-updated={{updated_at}}
+          data-mrz1={{mrz_line1}} data-mrz2={{mrz_line2}} data-mrz3={{mrz_line3}}
+          data-front={{front_side.filename}} data-back={{back_side.filename}} 
+          data-frontcontenttype={{front_side.content_type}}
+          data-backcontenttype={{back_side.content_type}} data-target="#documentViewModal" data-verified=true>
+        View
+        </button>
+        {{else}}
+          <button class="btn btn-primary btn-xs editDocument" type="button" data-toggle="modal" 
+          data-id={{id}} data-type={{type}} data-name={{document_name}}
+          data-description={{document_description}} data-number={{document_number}}
+          data-issuer={{issuing_country}} data-authority={{issuing_authority}}
+          data-from={{issue_date}} data-to={{expiry_date}} data-updated={{updated_at}}
+          data-mrz1={{mrz_line1}} data-mrz2={{mrz_line2}} data-mrz3={{mrz_line3}}
+          data-front={{front_side.filename}} data-back={{back_side.filename}} 
+          data-frontcontenttype={{front_side.content_type}}
+          data-backcontenttype={{back_side.content_type}} data-target="#documentViewModal" data-verified=''>
+        View
+        </button>
+        {{/if}}
+
+        <button class="btn btn-success btn-xs verifyDocument" type="button" data-toggle="modal"
+        data-target="#verifyDocumentModal" data-id={{id}} data-mrz1={{mrz_line1}} data-mrz2={{mrz_line2}}  
+        data-frontcontenttype={{front_side.content_type}} >
+         Verify
+        </button>
+
+        {{#if isDocVerified id}}
+          <button class="btn btn-danger btn-xs deleteDocument disabled" type="button" data-toggle="modal"
+          data-id={{id}} style="pointer-events:none;">
+          Delete
+          </button>
+        {{else}}
+          <button class="btn btn-danger btn-xs deleteDocument" data-id={{id}} type="button" data-toggle="modal">
+           Delete
+          </button>
+        {{/if}}
+       </td>
+      </tr>
+     {{/each}}
+    </tbody>
+   </table>   
+  {{else}}
+			<table width="100%">
+				<tr>
+					<td align='left'>No documents available.</td>
+					<td align='right'>
+						<button class="btn btn-plain btn-xs addDocument" type="button" data-toggle="modal" data-target="#documentAddModal">
+						<i class="fa fa-plus"></i> Add </button>
+					</td>
+				</tr>
+			</table>
+  {{/if}} 
+ </div>
+</template>

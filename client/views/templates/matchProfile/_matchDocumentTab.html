@@ -1,0 +1,28 @@
+<template name="matchDocumentTab">
+ <div id="documentsTab" class="tab-pane">
+  <br>
+  {{#if documents}}  
+   <table class="table table-striped">
+    <thead>
+     <tr>
+      <th>Type</th>
+      <th>Number</th>
+      <th>Note</th>
+     </tr>
+    </thead>
+    <tbody>
+     {{#each documents}}
+      <tr>
+       {{#if type}}<td>{{type}}</td>{{else}}<td align="center">-</td>{{/if}}
+       {{#if number}}<td>{{number}}</td>{{else}}<td align="center">-</td>{{/if}}
+       {{#if note}}<td>{{note}}</td>{{else}}<td align="center">-</td>{{/if}}
+      </tr>
+     {{/each}}
+    </tbody>
+   </table>   
+  {{else}}
+   No document available.
+  {{/if}}
+  
+ </div>  
+</template>

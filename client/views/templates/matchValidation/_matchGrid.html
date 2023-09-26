@@ -1,0 +1,149 @@
+<template name="matchGrid">
+ <div class="row">   
+  <div class="col-sm-12">
+
+   {{#with screeningDetails}}
+   <span class="pull-right" align="right" style="vertical-align:centre">
+    <small>ID <strong>{{id}}</strong></small>   
+    <br/>
+    <small>Last updated on <strong>{{dateConvert updated_at 'Do MMM YYYY HH:mm:ss'}}&nbsp;</strong></small>   
+   </span>
+   
+   <!-- <h4>Customer Details <a href='/customers/{{customerDetails.id}}' target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a></h4> -->
+   <table>
+    <tr>
+     <td>Customer Name</td>
+     <td style="padding-top: 5px;">
+      {{#if isEqual customerDetails.type 'INDIVIDUAL'}}
+        <strong>{{customerDetails.first_name}} {{customerDetails.last_name}} </strong> 
+      {{else}}
+        <strong>{{customerDetails.company_name}} </strong>     
+      {{/if}}
+      &nbsp;
+      <!-- <a href='/customers/{{customerDetails.id}}' target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a> -->
+      <a href='/customers/{{customerDetails.id}}'>(Details)</a>      
+    </td>     
+    </tr>
+    
+    <tr>
+     <td style="padding-top: 5px;">Screening Scope &nbsp;&nbsp;&nbsp;</td>
+     <td style="padding-top: 10px;">
+      {{#each scope}}
+       <label class="badge badge-default">{{getTextFromValue this}}</label> 
+      {{/each}}
+     </td>     
+    </tr>
+
+    <tr>
+     <td style="padding-top: 10px;">Matches Found</td>
+     <td style="padding-top: 10px;">{{matches.total_elements}}</td>     
+    </tr>
+
+    <tr>
+     <td style="padding-top: 10px;">Screening Status</td>
+     <td style="padding-top: 10px;">
+      {{#if isEqual status 'DONE'}}
+       <label class="label label-primary">{{toTitleCase status}}</label>
+       &nbsp;
+       <!-- (<a id='getReport'>Report</a>) -->
+       <!-- <a href="/reports">Report</a>        -->
+      {{else}}
+       <label class="label label-warning">{{toTitleCase status}}</label>     
+      {{/if}}
+     </td>
+    </tr>
+   </table>
+   <br>
+   {{#if isEqual status 'DONE'}}
+    <button style="width: 150px;" type="button" class='viewReport btn btn-success btn-xs'>View Report <i class="fa fa-eye" style="margin-left: 5px;" aria-hidden="true"></i></button>
+    <button style="margin-left: 10px; width: 150px;" type="button" class='downloadReport btn btn-success btn-xs'>Download Report <i class="fa fa-arrow-down" style="margin-left: 5px;" aria-hidden="true"></i></button>
+    <!-- <button type="button" class='downloadReport btn btn-success btn-xs'>Download Report <i class="fa fa-arrow-down" aria-hidden="true"></i></button>-->
+    <br><br>    
+   {{/if}}
+
+   {{#if hasMatches}}
+    {{#unless isEqual status 'DONE'}}
+    <div align="left" width=100%>     
+     <div class="alert alert-info" style="padding-top:3px;padding-bottom:3px;">Please confirm or dismiss the potential matches.</div>
+    </div>
+    {{/unless}}
+
+     <div class="table-responsive">
+       <table class="table" >
+       <thead>
+         <tr>
+          <th>Match Details</th>
+          <th style="width: 200px;">Match Type</th>
+          <th style="width: 100px;">More Info</th>              
+          <th style="width: 100px;">Validation</th>           
+         </tr>
+       </thead>
+       <tbody>
+         {{#each matches.content}}
+         <tr >    
+           <td>{{> scorecardBreakdown scorecardItem=scorecard screeningId=screeningId customerId=customerId matchId=id}} </td>
+
+           <td>
+            <ul style="list-style-type: none;margin:0;padding:0;">
+             {{#each match_type}}
+              <li style="padding-top:10px;">{{getTextFromValue this}}</li>
+             {{/each}}
+            </ul>
+           </td>
+
+           <td style="padding-top:17px;">
+            <a href="/customers/{{customerDetails.id}}/screenings/{{screeningId}}/matches/{{id}}">Details</a>
+            <!-- <button class="btn btn-default viewMatch" data-id={{id}}>View</button> -->
+           </td>
+
+           <td class="tabular-grid" style="overflow: hidden;vertical-align:top;padding-top:12px;">
+            <div data-toggle="buttons" align="center" disabled>
+            
+              {{#if isEqual validation_result 'CONFIRMED'}}
+              <label class="btn btn-default btn-sm validationButton confirmMatch active disabled" style="pointer-events: none;" align="left" data-id={{id}} data-type="matchValidation">
+                <input type="radio"> Confirm
+              </label>
+              &nbsp;&nbsp;
+              <label class="btn btn-default btn-sm validationButton dismissMatch" align="left" style="pointer-events: none;" data-id={{id}} ata-type="matchValidation"> 
+                <input type="radio"> Dismiss
+              </label>
+              {{else}}
+              {{#if isEqual validation_result 'DISMISSED'}}
+                <label class="btn btn-default btn-sm validationButton confirmMatch" align="left" style="pointer-events: none;" data-id={{id}} data-type="matchValidation">
+                <input type="radio"> Confirm
+                </label>
+                &nbsp;&nbsp;
+                <label class="btn btn-default btn-sm validationButton dismissMatch active disabled" style="pointer-events: none;" align="left" data-id={{id}} data-type="matchValidation">
+                <input type="radio"> Dismiss
+                </label>
+                {{else}}
+                <label class="btn btn-default btn-sm validationButton confirmMatch" style="border-width: 2px;" align="left"  data-id={{id}} data-type="matchValidation">
+                 <input type="radio"> Confirm
+                </label>
+                &nbsp;&nbsp;
+                <label class="btn btn-default btn-sm validationButton dismissMatch" style="border-width: 2px;" align="left" data-id={{id}} data-type="matchValidation">
+                 <input type="radio"> Dismiss
+                </label>
+                {{/if}}
+              {{/if}}
+            </div>
+           </td>     
+         </tr>
+         {{/each}}  
+       </tbody>
+      </table>
+     </div>
+    {{else}}
+    {{/if}}
+  {{/with}}
+  </div>
+ </div>
+ {{#if hasMatches}}
+ <div class="col-sm-12" align="right">
+   <button class="btn btn-plain btn-sm previousPage pageButton" type="button" {{previousPageStatus}}>Previous</button>
+   Page {{currentPage}} of {{totalPages}}
+   <button class="btn btn-plain btn-sm nextPage pageButton" type="button" {{nextPageStatus}}>Next</button>
+ </div>
+{{/if}}
+
+</template>

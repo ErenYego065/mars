@@ -1,0 +1,53 @@
+<template name="scorecardBreakdown">
+ <div class="dd" id="nestableScorecard">
+  <ol class="dd-list" style="background-color: white !important;">
+   <li class="dd-item no-drag" style="background-color: white !important;">
+    <div class="dd-handle" style="background-color: white !important;">
+     <!-- <span class="pull-right">
+       <span class="label label-default">Overall</span>  
+     </span> -->
+     <span class="label label-{{scoreSummary scorecardItem.overall_score}}">{{scorecardItem.overall_score}}</span> 
+     
+     {{#each scorecardItem.breakdown}}
+      {{#if isEqual field_name 'name'}}
+       {{field_value}}
+      {{/if}}
+      <!-- {{#if isEqual field_name 'gender'}}
+       , {{toTitleCase field_value}}
+      {{/if}}
+      {{#if isEqual field_name 'nationality'}}
+       , {{toCountryName field_value}}
+      {{/if}} -->
+     {{/each}} 
+
+    </div>
+    {{#each scorecardItem.breakdown}}
+     <ol class="dd-list" style="background-color: white !important;">
+      <li class="dd-item no-drag" style="background-color: white !important;">
+       <div class="dd-handle" style="background-color: white !important;">
+        <span class="pull-right" style="background-color: white !important;"> 
+         <span class="label label-default" style="background-color: white !important;">{{toTitleCase field_name}}</span>   
+        </span>
+        <span class="label label-{{scoreSummary score}}">{{score}}</span> {{field_value}}
+       </div>
+       {{#if breakdown}}
+        <ol class="dd-list" style="background-color: white !important;">
+         {{#each breakdown}}
+          <li class="dd-item no-drag" style="background-color: white !important;">
+           <div class="dd-handle" style="background-color: white !important;">
+            <span class="pull-right"> 
+             <span class="label label-default">{{toTitleCase field_name}}</span>   
+            </span>
+            <span class="label label-{{scoreSummary score}}">{{score}}</span> {{field_value}}
+           </div>
+          </li>
+         {{/each}}
+        </ol>       
+       {{/if}}
+      </li>
+     </ol>
+    {{/each}}
+   </li>   
+  </ol>
+ </div>
+</template>

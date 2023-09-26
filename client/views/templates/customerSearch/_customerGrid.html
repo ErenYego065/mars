@@ -1,0 +1,56 @@
+<template name="customerGrid">
+ <div class="row">
+  <div class="col-sm-3" align="left">
+   <div class="form-group">
+    <!-- <label class="control-label" for="Search">Search</label> -->
+    <input class="form-control input-sm idSearch" type="text" placeholder="Search by name or ID" 
+    autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+   </div>
+  </div>
+  <div class="col-sm-3" align="left">
+   <div id="registrationDateRange">
+    <div class="input-daterange input-group" id="datepicker">
+     <input class="form-control input-sm dateFrom" placeholder="Date From" value="" style="text-align:left;"/>
+     <span class="date-gap"></span>
+     <input class="form-control input-sm dateTo" placeholder="Date To" value="" style="text-align:left;"/>
+    </div>
+   </div> 
+  </div>
+ 
+  <div class="col-sm-2" align="left">
+   <div class="form-group">
+     <select class="form-control input-sm custType" style="padding-left:7px;" type="select" title="Customer Type">
+      <option value="ALL" selected>All</option>
+      <option value="INDIVIDUAL">Individual</option>
+      <option value="COMPANY">Company</option>
+     </select>
+   </div>
+  </div>
+  <div class="col-sm-4" align="right">
+   <button class="btn btn-success btn-sm" type="button" data-toggle="modal" 
+   data-target="#individualCustAddModal">
+    <i class="fa fa-user"></i> Add Individual</button>
+   <button class="btn btn-success btn-sm" type="button" data-toggle="modal" 
+    data-target="#companyCustAddModal">
+    <i class="fa fa-group"></i> Add Company</button>
+  </div>
+  <br><br><br>
+  <!-- <div class="col-sm-12" align="left">
+   Page {{currentPage}} of {{totalPages}}
+  </div> -->
+  
+  <div class="col-sm-12 gridTable">
+   {{> reactiveTable collection=customers settings=tableSettings}}
+   {{#unless customers}}No customers found.{{/unless}}
+  </div>
+
+  {{#if customers}}
+   <div class="col-sm-12" align="right">
+     <button class="btn btn-plain btn-sm previousPage pageButton" type="button" {{previousPageStatus}}>Previous</button>
+     Page {{currentPage}} of {{totalPages}}
+     <button class="btn btn-plain btn-sm nextPage pageButton" type="button" {{nextPageStatus}}>Next</button>
+   </div>
+  {{/if}}
+
+ </div>
+</template>

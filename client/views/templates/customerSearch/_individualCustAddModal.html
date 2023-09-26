@@ -1,0 +1,50 @@
+<template name="individualCustAddModal">
+ <div class="modal inmodal fade" id="individualCustAddModal" tabindex="-1" style="overflow:auto;" role="dialog"  aria-hidden="true"
+  data-backdrop="static">
+  <div class="modal-dialog">
+   <div class="modal-content">
+    <div class="modal-header">
+     <h5 class="modal-title">
+      Add Individual
+     </h5>
+    </div>
+    <div class="modal-body">
+     <div class="col-sm-12">
+      <dl class="dl-horizontal">          
+      
+       <!-- Customer First Name  -->
+       <dt class="modal-header-label">First Name <sup class="required">*</sup></dt>
+       <dd>
+        <input type="text" class="form-control" id="newFirstName" placeholder="First Name" autofocus>
+       </dd>
+       <br>
+
+       <!-- Customer Last Name  -->
+       <dt class="modal-header-label">Last Name <sup class="required">*</sup></dt>
+       <dd>
+        <input type="text" class="form-control" id="newLastName" placeholder="Last Name">
+       </dd>
+       <br>
+       
+       <!-- Customer Email  -->
+       <dt class="modal-header-label">Email <sup class="required">*</sup></dt>
+       <dd>
+        <input type="text" class="form-control" id="newIndividualEmail" placeholder="Email">
+       </dd>
+      
+      </dl>
+     </div>
+     <div align='center'><span id='individualValidationMessage' class="validation"></span></div>
+     <div class="row"> </div>
+    </div>
+
+    <div class="modal-footer">
+
+     <button type="button" class="btn btn-primary" id="saveIndividualCust"><i class="fa fa-save"></i> Save</button>
+     <button type="button" class="btn btn-white" id="closeIndividualCust">Close</button>     
+    </div>
+
+   </div>  
+  </div>
+ </div>
+</template>

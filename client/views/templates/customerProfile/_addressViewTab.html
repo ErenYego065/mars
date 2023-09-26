@@ -1,0 +1,72 @@
+<template name="addressViewTab"> 
+ <div class="tab-pane active" id="addressViewTab">
+  {{#if addresses}}
+   <table class="table table-striped">
+    <thead>
+     <tr>
+      <th>Type</th>
+      <th>Address</th>
+      <th style="white-space:nowrap;">From Date</th>
+      <th style="white-space:nowrap;">To Date</th>
+      <th style="text-align: right;"> 
+       <button class="btn btn-plain btn-xs addAddress" type="button" data-toggle="modal" data-target="#addressAddModal">
+       <i class="fa fa-plus"></i> Add </button>
+      </th>
+     </tr>
+    </thead>
+    <tbody>
+     {{#each addresses}}
+      <tr>
+       {{#if type}}
+        <td><small>{{toTitleCase type}}</small></td>
+       {{else}}
+        <td align="center">-</td>
+       {{/if}}
+
+       <td>
+        <small>{{commaSeparatedValues property_number property_name line extra_line city state_or_province postal_code}}, {{toCountryName country}}</small>
+       </td>
+       
+       {{#if from_date}}
+        <td><small>{{dateConvert from_date 'Do MMM YYYY'}}</small></td>
+       {{else}}
+        <td align="center">-</td>
+       {{/if}}
+       
+       {{#if to_date}}
+        <td><small>{{dateConvert to_date 'Do MMM YYYY'}}</small></td>
+       {{else}}
+        <td align="center">-</td>
+       {{/if}}
+
+       <td class="tabular-grid">
+        <button class="btn btn-plain btn-xs editAddress" type="button" data-toggle="modal" 
+            data-index={{@index}} data-type={{type}} data-name={{property_name}}
+            data-number={{property_number}} data-line={{line}}
+            data-extra={{extra_line}} data-city={{city}} data-province={{state_or_province}} 
+            data-postalcode={{postal_code}} data-country={{country}}
+            data-from={{from_date}} data-to={{to_date}} data-target="#addressViewModal">
+         View
+        </button>
+        <button class="btn btn-danger btn-xs deleteAddress" type="button" data-toggle="modal"
+        data-index={{@index}}>
+         Delete
+        </button>
+       </td>
+      </tr>
+      {{/each}}
+    </tbody>
+   </table>
+   {{else}}
+    <table width="100%">
+      <tr>
+        <td align='left'>No address available.</td>
+        <td align='right'>
+          <button class="btn btn-plain btn-xs addAddress" type="button" data-toggle="modal" data-target="#addressAddModal">
+          <i class="fa fa-plus"></i> Add </button>
+        </td>
+      </tr>
+    </table>
+   {{/if}}
+ </div>
+</template>

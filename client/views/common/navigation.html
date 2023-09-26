@@ -1,0 +1,161 @@
+<template name="navigation">
+ <nav class="navbar-default navbar-static-side" role="navigation">
+  <div class="sidebar-collapse">
+
+   <!-- Close canvas menu used only on OffCanvas page -->
+   <!-- You can remove this tag if you dont use offCanvas menu -->
+   <a class="close-canvas-menu"><i class="fa fa-times"></i></a>
+   <!-- End offCanvas menu toggle -->
+
+   <ul class="nav metismenu" id="side-menu">
+    <li class="nav-header">
+     <div class="dropdown profile-element">
+      <span align='left'>
+       <a href="/dashboard">
+        <img style="margin-top: 4px; padding-bottom:8px" src="/images/ClearDil_White.png" width="90%">
+       </a>
+      </span>
+     </div>
+    </li>
+
+    <li class="{{isActivePath path='/dashboard'}}" style="padding:5px;">
+     <a href="/dashboard"><i class="fa fa-tachometer" style="font-size:20px;"></i>
+      <span class="nav-label" style="font-size:16px;font-weight:300;">Dashboard</span>
+     </a>
+    </li>
+
+    <li class="{{isActivePath regex='^\/customers$|^\/customers\/([a-zA-Z0-9-_]+)?$|^\/customers(?:&?[^=&]*=[^=&]*)*$'}}"
+     style="padding:5px;">
+     <a href="/customers"><i class="fa fa-users" style="font-size:20px;"></i>
+      <span class="nav-label" style="font-size:16px;font-weight:300;">Customers</span>
+     </a>
+    </li>
+
+    <li class="{{isActivePath 
+      regex='^\/screenings$|^\/screenings?|\/customers\/([a-zA-Z0-9-_]+)\/screenings\/([a-zA-Z0-9-_]+)\/matches?$|\/customers\/([a-zA-Z0-9-_]+)\/screenings\/([a-zA-Z0-9-_]+)\/matches\/([a-zA-Z0-9-_]+)?$|\/customers\/([a-zA-Z0-9-_]+)\/screenings\/([a-zA-Z0-9-_]+)\/matches\/([a-zA-Z0-9-_]+)\/associations\/([a-zA-Z0-9-_]+)?$|^\/screenings$|\/customers\/([a-zA-Z0-9-_]+)\/screenings?$/\/screenings(?:&?[^=&]*=[^=&]*)*$'}}"
+     style="padding:5px;">
+     <a href="/screenings"><i class="fa fa-search" style="font-size:20px;"></i>
+      <span class="nav-label" style="padding-left:3px;font-size:16px;font-weight:300;">Screenings</span>
+      {{#if isLess 1 openScreening}}
+      <span class="label label-success pull-right" style="font-size:16px;font-weight:300;">
+       {{openScreening}} </span>
+      {{/if}}
+     </a>
+    </li>
+
+    <li class="{{isActivePath 
+      regex='^\/verifications$|^\/verifications?|\/customers\/([a-zA-Z0-9-_]+)\/verifications\/([a-zA-Z0-9-_]+)?$|\/customers\/([a-zA-Z0-9-_]+)\/verifications?$'}}"
+     style="padding:5px;">
+     <a href="/verifications"><i class="fa fa-id-card-o" style="font-size:20px;"></i>
+      <span class="nav-label" style="padding-left:0px;font-size:16px;font-weight:300;">Verifications</span>
+     </a>
+    </li>
+
+    <li class="{{isActivePath 
+     regex='^\/identifications$|^\/identifications?|\/customers\/([a-zA-Z0-9-_]+)\/identifications\/([a-zA-Z0-9-_]+)?$|\/customers\/([a-zA-Z0-9-_]+)\/identifications?$'}}"
+     style="padding:9px;padding-top: 7px;">
+     <a href="/identifications"><i class="fa fa-id-badge" style="font-size:20px;"></i>
+      <span class="nav-label" style="padding-left:4px;font-size:16px;font-weight:300;">Identifications</span>
+     </a>
+    </li>
+
+    <!-- {{#if isInRole 'admin' 'test'}}
+    <li class="{{isActivePath 
+      regex='^\/cases$|\/customers\/([a-zA-Z0-9-_]+)\/cases\/([a-zA-Z0-9-_]+)?$|\/customers\/([a-zA-Z0-9-_]+)\/cases?$'}}"       
+      style="padding:5px;">
+      <a href="/cases"><i class="fa fa-tasks" style="font-size:20px;"></i> 
+        <span class="nav-label" style="font-size:16px;font-weight:300;">Cases</span>
+      </a>
+    </li>
+    {{/if}} -->
+
+    <!-- {{#if isInRole 'admin' 'test'}}
+    <li class="{{isActivePath 
+      regex='^\/identityVerificationDemo$'}}"       
+      style="padding:5px;">
+      <a href="/identityVerificationDemo"><i class="fa fa-id-badge" style="font-size:20px;"></i> 
+        <span class="nav-label" style="font-size:16px;font-weight:300;">Identifications</span>
+          <span class="label label-primary pull-right" style="font-size:10px;font-weight:300;"> Demo </span>
+      </a>
+    </li>
+    {{/if}} -->
+
+    <li class="{{isActivePath regex='serviceUsage|profileSettings|userSettings|apiSettings'}}" style="padding-left:8px;">
+     <a href="#"><i class="fa fa-cog" style="font-size:20px;"></i>
+      <span class="nav-label" style="padding-left:2px;font-size:16px;font-weight:300;">Settings</span>
+      <span class="fa arrow"></span>
+     </a>
+     <!-- <ul class="nav nav-second-level collapse {{isActivePath  className='in'}}"> -->
+     <ul class="nav nav-second-level collapse {{isActivePath regex='serviceUsage|profileSettings|userSettings|apiSettings' className='in'}}">
+      <li class="{{isActivePath path='/profileSettings'}}"><a href="/profileSettings">Profile & Security</a></li>
+      <!-- {{#if isInRole 'admin' 'test'}}<li class="{{isActivePath path='/userSettings'}}"><a href="/userSettings">Users</a></li>{{/if}} -->
+      <li class="{{isActivePath path='/apiSettings'}}"><a href="/apiSettings">API</a></li>
+      {{#if isInRole 'admin' 'live'}}
+      {{#if isLive}}
+      <li class="{{isActivePath path='/serviceUsage'}}"><a href="/serviceUsage">Usage</a></li>
+      {{/if}}
+      {{/if}}
+     </ul>
+    </li>
+
+    <!-- {{#if isInRole 'admin' 'test'}}
+    <li class="{{isActivePath regex='helpFAQ|helpContact'}}" style="padding:5px;" id="helpSection">
+      <a href="#"><i class="fa fa-question" style="font-size:20px;"></i> 
+        <span class="nav-label" style="font-size:16px;font-weight:300;">Help</span>
+        <span class="fa arrow"></span>
+      </a>
+      <ul class="nav nav-second-level collapse {{isActivePath regex='helpFAQ|helpContact' className='in'}}">    
+       {{#if isInRole 'admin' 'test'}}<li class="{{isActivePath path='/faqHelp'}}"><a href="/faqHelp">FAQ</a></li>{{/if}}      
+       {{#if isInRole 'admin' 'test'}}<li class="{{isActivePath path='/contactHelp'}}"><a href="#">Contact Support</a></li>{{/if}}             
+      </ul>
+    </li>
+    {{/if}} -->
+
+    <div class="footer" style="background:rgba(0,0,0,0)!important;border:0;margin-left:10px;">
+     <table width="100%">
+      <tr>
+       <td width="60%" align="left">
+        <!-- <span class="nav-label" style="font-size:12px;font-weight:300;color:#fff;">
+         Version 0.4
+        </span> -->
+       </td>
+       <td style="padding-top:3px;">
+        {{#if isInRole 'live, admin, audit'}}
+        {{> environmentSelection}}
+        {{/if}}
+       </td>
+      </tr>
+     </table>
+    </div>
+
+    <li style="padding-top: 10px;">
+     <a href="https://docs.cleardil.com/portal/" target="_blank"><i class="fa fa-info" style="padding-left:12px;font-size:20px;"></i>
+      <span class="nav-label" style="padding-left:7px;font-size:16px;font-weight:300;">Quick Guide</span>
+     </a>
+    </li>
+
+    {{#if isInRole 'admin,audit'}}
+    <li class="{{isActivePath path='/admin'}}" style="padding:10px;padding-top: 12px;">
+     <a href="/admin"><i class="fa fa-lock" style="font-size:20px;"></i>
+      <span class="nav-label" style="padding-left:5px;font-size:16px;font-weight:300;">Admin</span>
+     </a>
+    </li>
+    {{/if}}
+
+   </ul>
+  </div>
+ </nav>
+</template>
+<!-- 
+<template name="helpNavSection">
+  <li class="{{isActivePath regex='helpFAQ|helpContact'}}" style="padding:5px;">
+    <a href="#"><i class="fa fa-question" style="font-size:20px;"></i> 
+      <span class="nav-label" style="font-size:16px;font-weight:300;">Help</span>
+      <span class="fa arrow"></span>
+    </a>
+    <ul class="nav nav-second-level collapse">    
+      <li class="{{isActivePath regex='/faqHelp'}}"><a href="/faqHelp">FAQ</a></li>
+      <li class="{{isActivePath regex='/contactHelp'}}"><a href="#">Contact Support</a></li>      
+    </ul>
+  </li>
+</template> -->

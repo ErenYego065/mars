@@ -1,0 +1,97 @@
+<template name="adminUserDetails">
+ {{> pageHeading title='Administration' category='User Management' parent='Administration' }}
+ <br>
+
+ <div class="row">
+  <div class="col-md-12">
+   <div class="ibox float-e-margins" id="ibox1">
+    <div class="ibox-content">
+
+     <div class="sk-spinner sk-spinner-double-bounce">
+      <div class="sk-double-bounce1 "></div>
+      <div class="sk-double-bounce2"></div>
+     </div>
+
+     {{#if isInRole 'admin,audit'}}
+     {{#with profiles}}
+     <div class="row">
+      <div class="ibox float-e-margins">
+       <div class="col-sm-12">
+        <div>
+         <label class="col-sm-4">Company Name</label>
+         <label class="col-sm-8" style="font-weight: 400!important;">{{companyName}}</label>
+        </div>
+        <div>
+         <label class="col-sm-4">Username</label>
+         <label class="col-sm-8" style="font-weight: 400!important;">{{username}}</label>
+        </div>
+        <!-- <div>
+          <label class="col-sm-4">Primary Contact</label>
+          <label class="col-sm-8" style="font-weight: 400!important;">{{primaryContactName}}</label>
+         </div>
+         <div>
+          <label class="col-sm-4">Primary Contact Email</label>
+          <label class="col-sm-8" style="font-weight: 400!important;">{{primaryContactEmail}}</label>
+         </div> -->
+        <div>
+         <label class="col-sm-4">Last Logged In</label>
+         <label class="col-sm-8" style="font-weight: 400!important;">{{lastLoggedIn}}</label>
+        </div>
+       </div>
+
+       <div class="col-sm-12">
+        <br><br>
+        <div>
+         <label class="col-sm-4">Authorization Header</label>
+         <label class="col-sm-8" style="font-weight: 400!important;">{{decrypt apiAuthorizationHeader}}</label>
+        </div>
+        <div>
+         <label class="col-sm-4">Period</label>
+         <label class="col-sm-8" style="font-weight: 400!important;">{{fromDate}} to {{toDate}}</label>
+        </div>
+        <br><br><br>
+        <div>
+         <label class="col-sm-4">Customers</label>
+         <label class="col-sm-8" style="font-weight: 400!important;">{{usageCount.totalCustomer}}</label>
+        </div>
+        <br><br>
+        <div>
+         <label class="col-sm-4">Verifications</label>
+         <label class="col-sm-8" style="font-weight: 400!important;">{{usageCount.totalDocVerChecks}}</label>
+        </div>
+        <br><br>
+        <div>
+         <label class="col-sm-4">Identifications</label>
+         <label class="col-sm-8" style="font-weight: 400!important;">{{usageCount.totalIdVerChecks}}</label>
+        </div>
+        <!-- <br><br><div>
+          <label class="col-sm-4">Screenings (Total)</label>
+          <label class="col-sm-8" style="font-weight: 400!important;">{{usageCount.totalScreeningChecks}}</label>
+         </div> -->
+        <div>
+         <br><br><label class="col-sm-4">Watchlist</label>
+         <label class="col-sm-8" style="font-weight: 400!important;">{{usageCount.wlCount}}</label>
+        </div>
+        <div>
+         <label class="col-sm-4">PEP</label>
+         <label class="col-sm-8" style="font-weight: 400!important;">{{usageCount.pepCount}}</label>
+        </div>
+        <div>
+         <label class="col-sm-4">Disqualified Entities</label>
+         <label class="col-sm-8" style="font-weight: 400!important;">{{usageCount.ddCount}}</label>
+        </div>
+        <div>
+         <label class="col-sm-4">Adverse Media</label>
+         <label class="col-sm-8" style="font-weight: 400!important;">{{usageCount.amCount}}</label>
+        </div>
+       </div>
+      </div>
+     </div>
+
+     {{/with}}
+     {{/if}}
+    </div>
+   </div>
+  </div>
+ </div>
+</template>

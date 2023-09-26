@@ -1,0 +1,50 @@
+<template name="pageHeading">
+ <div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-xs-12">
+   {{> profileLogo}}
+   <h2 style="color:#328EEC;font-weight:500">{{title}}</h2>
+    <!-- {{#if isLive}}<h2 style="color:#328EEC;font-weight:500">{{title}}</h2> -->
+    <!-- {{else}}<h2 style="color:#328EEC;font-weight:500">{{title}} (Test Mode)</h2>{{/if}} -->
+
+   <ol class="breadcrumb" style="color:#328EEC;">
+    {{#if category}}
+    <li>
+     <a href="/{{toLowerCase parent}}">{{parent}}</a>
+    </li>
+    {{/if}}
+
+    {{#if removeNumberOfResourceForChild}}
+    <li>
+      <a href="{{toLowerCase childLink}}">{{child}}</a>
+    </li>
+    {{/if}}
+    
+    <li class="active">
+     <strong>{{category}}</strong>
+    </li>
+  </ol>
+    <!-- <ul >
+                <li class="nav navbar-top-links navbar-right">
+                    <a class="logout" ref="#">
+                        <i class="fa fa-sign-out"></i> Log out
+                    </a>
+                </li>
+            </ul> -->
+
+    <!-- <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+        <span class="clear"> 
+         <span class="block m-t-xs">
+          <i class="fa fa-user-circle-o fa-lg" style="color: white;" aria-hidden="true"></i>
+         </span>
+        </span> 
+       </a>
+        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+        <li><a href="profile">Profile</a></li>
+        <li class="divider"></li>
+        <li><a href="login">Logout</a></li>
+       </ul> -->
+    
+
+  </div>
+ </div>
+</template>

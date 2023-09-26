@@ -1,0 +1,43 @@
+<template name="companyCustAddModal">
+ <div class="modal inmodal fade" id="companyCustAddModal" tabindex="-1" style="overflow:auto;" role="dialog"  aria-hidden="true"
+  data-backdrop="static">
+  <div class="modal-dialog">
+   <div class="modal-content">
+    <div class="modal-header">
+     <h5 class="modal-title">
+      Add Company
+     </h5>
+    </div>
+    <div class="modal-body">
+     <div class="col-sm-12">
+      <dl class="dl-horizontal">          
+      
+       <!-- Company Name -->
+       <dt class="modal-header-label">Company Name <sup class="required">*</sup></dt>
+       <dd>
+        <input type="text" class="form-control" id="newCompanyName" placeholder="Company Name">
+       </dd>
+       <br>
+
+       <!-- Company Email  -->
+       <dt class="modal-header-label">Email <sup class="required">*</sup></dt>
+       <dd>
+        <input type="text" class="form-control" id="newCompanyEmail" placeholder="Email">
+       </dd>
+      
+      </dl>
+     </div>
+     <div align='center'><span id='companyValidationMessage' class="validation"></span></div>
+     <div class="row"> </div>
+    </div>
+
+    <div class="modal-footer">
+
+     <button type="button" class="btn btn-primary" id="saveCompanyCust"><i class="fa fa-save"></i> Save</button>
+     <button type="button" class="btn btn-white" id="closeCompanyCust">Close</button>     
+    </div>
+
+   </div>  
+  </div>
+ </div>
+</template>

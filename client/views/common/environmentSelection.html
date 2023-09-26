@@ -1,0 +1,8 @@
+<template name="environmentSelection">
+  <div class="btn-group" id="environment" data-toggle="buttons" >
+    <label class="btn btn-default btn-on btn-xs {{isLive}}">
+    <input type="radio" value="true" name="environment">{{liveEnvName}}</label>
+    <label class="btn btn-default btn-off btn-xs {{isTest}}">
+    <input type="radio" name="environment" value="false">{{testEnvName}}</label>
+  </div>
+</template>

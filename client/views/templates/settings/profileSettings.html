@@ -1,0 +1,76 @@
+<template name="profileSettings">
+ {{> pageHeading title='Settings' parent='Settings' category='Profile'}}
+ <div class="wrapper wrapper-content">
+  <div class="row">
+   <div class="col-lg-12">
+    <div class="ibox float-e-margins" id="ibox1">
+     <div class="ibox-content">
+
+      <div class="sk-spinner sk-spinner-double-bounce">
+       <div class="sk-double-bounce1 "></div>
+       <div class="sk-double-bounce2"></div>
+      </div>
+
+      <div class="row">
+       <div class="col-sm-10">
+        {{# autoForm collection="UserProfile" doc=selectedProfile id="updateProfile" type="method-update"
+        meteormethod="updateUserprofile" }}
+        {{> afQuickField name="companyName" template="bootstrap3-horizontal" label-class="col-sm-4"
+        input-col-class="col-sm-8"}}
+        {{> afQuickField name="telephone" template="bootstrap3-horizontal" label-class="col-sm-4"
+        input-col-class="col-sm-8"}}
+        {{> afQuickField name="primaryContactName" template="bootstrap3-horizontal" label-class="col-sm-4"
+        input-col-class="col-sm-8"}}
+        {{> afQuickField name="primaryContactEmail" template="bootstrap3-horizontal" label-class="col-sm-4"
+        input-col-class="col-sm-8"}}
+        {{> afQuickField name="website" template="bootstrap3-horizontal" label-class="col-sm-4"
+        input-col-class="col-sm-8"}}
+        <div align="right" style="padding-right:15px;">
+         <button type="submit" class="btn btn-primary">Save Profile</button>
+         <!-- <button type="reset" class="btn btn-default">Cancel</button> -->
+        </div>
+        {{/autoForm}}
+
+        <br> <br>
+
+        {{# autoForm collection="Meteor.users" doc=currentUser id="updatePassword" type="method-update"
+        meteormethod="updateUserPassword" }}
+        {{> afQuickField value='' name="password" type="password" template="bootstrap3-horizontal"
+        label-class="col-sm-4" input-col-class="col-sm-8"}}
+        {{> afQuickField value='' name="passwordConfirmation" type="password" template="bootstrap3-horizontal"
+        label-class="col-sm-4" input-col-class="col-sm-8"}}
+        <div align="right" style="padding-right:15px;">
+         <button type="submit" class="btn btn-primary">Change Password</button>
+        </div>
+        {{/autoForm}}
+
+        <br> <br> <br>
+
+        <label class="col-sm-4">2 Factor-Authentication Security</label>
+        <label class="col-sm-8 text-right" style="font-weight: 400!important;">
+         {{#if twoFAEnabled}}
+         <button type="submit" data-toggle="modal" data-target="#settingsDisable2FAModalPage1" class="btn">Disable
+          2-Factor Authentication</button>
+         {{else}}
+         <button type="submit" data-toggle="modal" data-target="#settings2FAModalPage1" class="btn btn-primary enable2FA">Enable
+          2-Factor Authentication</button>
+         {{/if}}
+        </label>
+
+        {{#unless twoFAEnabled}}
+        <span class="col-sm-4" style="margin-top: -10px;"> Set two-factor authentication by linking your phone
+         to your ClearDil account for enhanced security.</span>
+        {{/unless}}
+       </div>
+      </div>
+
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+ {{> settings2FAModalPage1}}
+ {{> settings2FAModalPage2}}
+ {{> settings2FAModalPage3}}
+ {{> settingsDisable2FAModalPage1}}
+</template>

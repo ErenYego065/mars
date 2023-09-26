@@ -1,0 +1,37 @@
+<template name="verificationOutcome">
+ <div class="row">   
+  {{#with verificationDetails}} 
+   {{> verificationOutcomeBreakdown title='Integrity Analysis' overallStatus=outcome.integrity_analysis.status breakdown=outcome.integrity_analysis.breakdown}}
+   {{> verificationOutcomeBreakdown title='Authenticity Analysis' overallStatus=outcome.authenticity_analysis.status breakdown=outcome.authenticity_analysis.breakdown}}
+   {{> verificationOutcomeBreakdown title='Content Analysis' overallStatus=outcome.content_analysis.status breakdown=outcome.content_analysis.breakdown}}
+   {{> verificationOutcomeBreakdown title='Consistency Analysis' overallStatus=outcome.consistency_analysis.status breakdown=outcome.consistency_analysis.breakdown}}   
+   {{> verificationOutcomeBreakdown title='MRZ Analysis' overallStatus=outcome.mrz_analysis.status breakdown=outcome.mrz_analysis.breakdown}}
+   {{> verificationOutcomeBreakdown title='Expiration Check' overallStatus=outcome.expiration_check.status breakdown=outcome.expiration_check.breakdown}}
+  {{/with}}
+ </div>  
+</template>
+
+<template name="verificationOutcomeBreakdown">
+  <div class="col-sm-6">
+   <div class="ibox float-e-margins">
+    <div class="ibox-dashboard">
+     <span class="pull-right">
+      {{{getVerificationResultSymbol overallStatus}}}
+     </span>
+     <h3>{{title}}</h3>
+     <div class="row">
+      <div class="col-sm-12">
+       <table style="vertical-align:top;width:100%;">
+        {{#each breakdown}}
+         <tr>
+          <td>{{getTextFromValue type}}</td>
+          <td style="text-align:right;">{{{getVerificationResultSymbol status}}}</td>         
+         </tr>
+        {{/each}}
+       </table>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+</template>

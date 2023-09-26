@@ -1,0 +1,52 @@
+<template name="associationSnippet">
+ {{#with association}}
+
+ <dl>
+   <div class="col-md-3">
+    <dt style="font-weight: normal">Name</dt>
+    <dd>
+      <td>
+      {{#each names}}
+        {{#if isEqual name_type 'PRIMARY_NAME'}}
+        <label type="text">{{first_name}} {{middle_name}} {{last_name}} {{company_name}}</label>
+        <br>
+        {{/if}}
+      {{/each}}
+      </td>
+    </dd>
+   </div>
+
+   <div class="col-md-3">
+    <dt style="font-weight: normal">Relationship</dt>
+    <dd>
+     <td>
+      <label>{{getTextFromValue association_type}}</label>
+      <i>({{toLowerCase status}})</i>
+      &nbsp;&nbsp;&nbsp;
+     </td>
+    </dd>
+   </div>
+
+   <div class="col-md-3">   
+    <dt style="font-weight: normal">Entity Type</dt>
+    <dd>
+     <td>
+      {{#each match_type}}
+       <label class="label label-default">{{getTextFromValue this}}</label>
+       &nbsp;&nbsp;&nbsp;
+      {{/each}}
+     </td>
+    </dd>
+   </div>
+
+   <div class="col-md-3">
+    <br>
+    <a href="/customers/{{../customerId}}/screenings/{{../screeningId}}/matches/{{../matchId}}/associations/{{id}}">
+     View full profile >
+    </a>
+   </div>
+   </dl>
+   <br>    
+   <br>
+ {{/with}}
+</template>

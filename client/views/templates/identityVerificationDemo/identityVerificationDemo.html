@@ -1,0 +1,178 @@
+<template name="identityVerificationDemo">
+ {{> pageHeading title='Identifications' parent='Settings' category='Identifications'}}
+ <div class="wrapper wrapper-content">
+  <div class="row">
+   <div class="col-lg-12">
+    <div class="ibox float-e-margins" id="ibox1">
+     <div class="ibox-content">
+
+      <div class="sk-spinner sk-spinner-double-bounce">
+       <div class="sk-double-bounce1"></div>
+       <div class="sk-double-bounce2"></div>
+      </div>
+
+      <div class="row">
+       <div class="selfieContent" style="display:none;" >
+        <!-- <img class="selfiePhoto" width="100%"> -->
+       </div>
+       <div class="idPhotoContent" style="display:none;" >
+        <!-- <img class="idPhoto" width="100%"> -->
+       </div>
+      </div>
+
+      <div class="row" id="otherDiv">
+       <h3>
+        Step 1: Take a selfie 
+        {{#if selfieImage}}
+         <span style="color:#328EEC;animation-duration: 2s;"><i class="animated fadeIn fa fa-check-circle fa-2x"></i></span>
+        {{/if}}
+       </h3>
+       <br>
+       {{#unless selfieImage}}
+        <button type="submit" style="background-color:#328EEC;color:#fff" class="btn block m-b takeSelfie">Take Selfie</button>       
+       {{/unless}}
+       <br><br>
+      </div>
+
+      {{#if selfieImage}}
+       <div class="row" style="padding-bottom:20px;">
+         <h3>
+          Step 2: Select ID type
+          {{#if idPhotoImage}}
+           <span style="color:#328EEC;animation-duration: 2s;"><i class="animated fadeIn fa fa-check-circle fa-2x"></i></span>          
+          {{/if}}
+         </h3>
+         {{#unless idPhotoImage}}
+         <div class="cc-selector" style="padding-top:25px;">
+           <div class="col-md-4" align="center"> 
+            <input id="passport" type="radio" name="idType" value="PASSPORT"/>
+            <label class="help-cc passport" for="passport"></label>
+            <br>
+            <label for="passport" style="font-size: 14px;" class="help-label">Passport</label>     
+           </div>
+  
+           <div class="col-md-4" align="center" > 
+             <input id="drivingLicense" type="radio" name="idType" value="DRIVING_LICENSE"/>
+             <label class="help-cc drivingLicense" for="drivingLicense"></label>
+             <br>
+             <label for="drivingLicense" style="font-size: 14px;" class="help-label">Driving License</label>     
+           </div>
+        
+           <div class="col-md-4" align="center">      
+            <input id="nationalId" type="radio" name="idType" value="NATIONAL_ID_CARD" />
+            <label class="help-cc nationalId" for="nationalId"></label>
+            <br>     
+            <label for="nationalId" style="font-size: 14px;" class="help-label">National ID</label>          
+           </div>
+          </div>  
+          {{/unless}}      
+        </div>
+
+        {{#unless idPhotoImage}}       
+        <div class="row">
+         <button type="submit" style="background-color:#328EEC;color:#fff;width:120px;" class="btn block m-b captureId">Take ID Snap</button>                
+        </div>
+        {{/unless}}
+       {{/if}}
+
+       {{#if identificationDetails}}       
+        <div class="row text-center" style="color:#328EEC">
+         <br><br>
+         <br><br>
+
+         <h1 >
+          Face matched
+          <i style="animation-duration: 2s;" class="animated fadeIn fa fa-check-circle"></i>                    
+         </h1>
+         <h3>
+           We are {{confidenceLevel}}% sure             
+         </h3>
+         <br>        
+        </div>
+
+ 
+        <div class="row">
+         <div class="col-sm-6" style="margin-left:-15px!important;">
+          <div class="ibox float-e-margins">
+           <div class="ibox-dashboard">
+            <h3>Selfie Image</h3>
+            <div class="row">
+             <div class="col-sm-12">
+              <table style="vertical-align:top;width:100%;">
+               <tr>
+                <td>Age</td>
+                <td style="text-align:right;"><strong>31</strong></td>         
+               </tr>
+               <tr>
+                <td>Blur</td>
+                <td style="text-align:right;"><strong>Low</strong></td>         
+               </tr>
+               <tr>
+                <td>Mask</td>
+                <td style="text-align:right;"><strong>No</strong></td>         
+               </tr>
+               <tr>
+                <td>Exposure</td>
+                <td style="text-align:right;"><strong>Good</strong></td>         
+               </tr>
+               <tr>
+                <br>
+                 <img src="{{selfieImage}}" class="demoImageResult"/>
+               </tr>
+              </table>
+             </div>
+            </div>
+           </div>
+          </div>
+         </div>
+         <div class="col-sm-6" style="margin-left:-15px!important;">
+          <div class="ibox float-e-margins">
+           <div class="ibox-dashboard">
+            <h3>ID Document</h3>
+            <div class="row">
+             <div class="col-sm-12">
+              <table style="vertical-align:top;width:100%;">
+               <tr>
+                <td>Age</td>
+                <td style="text-align:right;"><strong>29</strong></td>         
+               </tr>
+               <tr>
+                <td>Blur</td>
+                <td style="text-align:right;"><strong>Low</strong></td>         
+               </tr>
+               <tr>
+                <td>Mask</td>
+                <td style="text-align:right;"><strong>No</strong></td>         
+               </tr>
+               <tr>
+                <td>Exposure</td>
+                <td style="text-align:right;"><strong>Good</strong></td>         
+               </tr>
+               <tr>
+                <br>
+                <img src="{{idPhotoImage}}" class="demoImageResult"/>
+               </tr>
+              </table>
+             </div>
+            </div>
+           </div>
+          </div>
+         </div>
+        
+         <!-- Outcome: 
+         {{#if identificationDetails.outcome.face_match}}
+          <span class="label label-primary">Face Matched</span>
+         {{else}}
+          <span class="label label-danger"> Face Not Matched</span>
+         {{/if}}         
+         <br><br>
+         Confidence: {{identificationDetails.outcome.confidence_level}} -->
+        </div>
+       {{/if}}
+      
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>   
+</template>         

@@ -1,0 +1,179 @@
+<template name="dashboard">
+ <div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-xs-12">
+   {{> profileLogo}}
+   <h2 style="color:#328EEC;">Hello <strong>{{companyName}}</strong></h2>
+   <ol class="breadcrumb" style="color:#328EEC;">
+    <li>Last logged in <strong>{{dateConvert lastLoggedIn 'Do MMM YYYY HH:mm:ss'}}</strong></li>
+   </ol>
+  </div>
+ </div>
+
+ <div class="wrapper wrapper-content">
+  <div class="row">
+   <div class="col-md-12">
+    <div class="ibox float-e-margins" id="ibox1">
+     <div class="ibox-dashboard ibox-content">
+      <div class="sk-spinner sk-spinner-double-bounce">
+        <div class="sk-double-bounce1 "></div>
+        <div class="sk-double-bounce2"></div>
+      </div>
+      <h3>Requires Attention</h3>
+      <br>
+      <div class="row" align="center">
+       <div class="col-md-6">
+         {{#if isLess 1 openScreening}}
+          <h1 class="no-margins text-danger">{{openScreening}}</h1>         
+          <div class="font-bold text-gray"><small>Pending screenings</small></div>
+         {{else}}
+          <h1 class="no-margins text-gray">{{openScreening}}</h1>         
+          <div class="font-bold text-gray"><small>Pending screenings</small></div> 
+        {{/if}}
+       </div>
+       <div class="col-md-6">
+        {{#if isLess 1 screeningStats.open_matches}}
+         <h1 class="no-margins text-danger">{{screeningStats.open_matches}}</h1>         
+         <div class="font-bold text-gray"><small>Matches awaiting validation</small></div>
+        {{else}}
+         <h1 class="no-margins text-gray">{{screeningStats.open_matches}}</h1>         
+         <div class="font-bold text-gray"><small>Matches awaiting validation</small></div> 
+        {{/if}}
+       </div>
+       <!-- <div class="col-md-4">
+        <h1 class="no-margins text-gray">0</h1>         
+        <div class="font-bold text-gray"><small>Documents awaiting validation</small></div>                  
+       </div> -->
+      </div>
+     </div>
+    </div>
+   </div>
+
+  <!-- <div class="col-md-4">
+   <div class="ibox float-e-margins">
+    <div class="ibox-dashboard">
+     <h3>Account Info</h3>
+     <br>
+     <div class="row">
+      <div class="col-md-6" align="center">
+       <h1 class="no-margins text-default">£36.75</h1>         
+       <div class="font-bold text-gray">Previous month</div>                  
+      </div>
+      <div class="col-md-6" align="center">
+       <h1 class="no-margins text-default">£45.00</h1>         
+       <div class="font-bold text-gray">Current</div>                  
+      </div>
+     </div>
+    </div>
+   </div>
+  </div> -->
+
+  <div class="col-lg-12">
+   <div class="row">
+    <div class="col-lg-12">
+     <div class="ibox float-e-margins" id="ibox2">
+      <div class="ibox-dashboard ibox-content">
+       <div class="sk-spinner sk-spinner-double-bounce">
+         <div class="sk-double-bounce1 "></div>
+         <div class="sk-double-bounce2"></div>
+       </div>
+       <h3>Customer Breakdown</h3>
+       <br>
+
+       <div class="row" align="center">
+        <div class="col-md-4">
+         <h1 class="no-margins text-gray">{{customerStats.total_customers}}</h1>        
+         <small>Total</small>
+         {{#if isEqual 0 customerStats.total_customers}}
+          <div class="font-bold text-navy">{{customerTotalSinceLastWeek}}% <i class="fa fa-level-up"></i> <small>since last week</small></div>                
+         {{else}}
+          <div class="font-bold text-gray"><small>No change since last week</small></div>                          
+         {{/if}}
+        </div>
+
+        <div class="col-md-4">
+         <h1 class="no-margins">{{customerStats.individuals}}</h1>
+         <small>Individuals</small>
+         {{#if isEqual 0 customerStats.individuals}}
+          <div class="font-bold text-navy">{individualTotalSinceLastWeek}}% <i class="fa fa-level-up"></i> <small>since last week</small></div>                
+         {{else}}
+          <div class="font-bold text-gray"><small>No change since last week</small></div>                          
+         {{/if}}
+        </div>
+       
+        <div class="col-md-4">
+         <h1 class="no-margins">{{customerStats.companies}}</h1>
+         <small>Companies</small>
+        <div class="font-bold text-gray"><small>No change since yesterday</small></div>                
+         </div>
+        </div>
+
+        <div class="row" align="center">
+         <br><br><br>
+         <div class="col-md-4" id="riskScoreAggregate" style="display:none;">
+          <canvas id="riskProfileDoughnut" width="180" height="120"></canvas>
+          <h5>Cutomers by risk profile</h5>
+         </div>
+         <div class="col-md-4" id="individualBreakdownFlag" style="display:none;">
+          <canvas id="individualBreakdownDoughnut" width="180" height="120"></canvas>
+          <h5>Individuals breakdown</h5>
+         </div>
+         <div class="col-md-4" id="companyBreakdownFlag" style="display:none;">
+          <canvas id="companyBreakdownDoughnut" width="180" height="120"></canvas>
+          <h5>Companies breakdown</h5>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    
+   </div>
+
+   <div class="col-lg-12" style="display:none;" id="worldMap">
+    <div class="row">
+     <div class="col-lg-12">
+      <div class="ibox float-e-margins" id="ibox3">
+       <div class="ibox-dashboard ibox-content">
+        <div class="sk-spinner sk-spinner-double-bounce">
+          <div class="sk-double-bounce1 "></div>
+          <div class="sk-double-bounce2"></div>
+        </div>
+        <h3>Customer Demography</h3>
+        <br>
+        <div class="row">        
+         <div class="col-lg-4">
+          <table class="table table-hover margin bottom">
+           <thead>
+            <tr>
+             <th style="width: 1%" class="text-center">No.</th>
+             <th>Country</th>
+             <th class="text-right">Customers</th>
+            </tr>
+           </thead>
+           <tbody>
+            {{#each countryList}}
+            <tr>
+             <td class="text-center">{{add @index 1}}</td>
+             <td> {{country}}
+             </td>
+             <td class="text-right"><span class="label label-primary">{{population}}</span>
+             </td>
+            </tr>  
+            {{/each}}           
+          
+           </tbody>
+          </table>
+         </div>        
+         <div class="col-lg-8">
+          <div id="world-map" style="height: 300px;"></div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+
+  </div>
+ </div>
+</template>

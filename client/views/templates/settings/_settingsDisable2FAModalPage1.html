@@ -1,0 +1,35 @@
+<template name="settingsDisable2FAModalPage1">
+ <div class="modal inmodal fade" id="settingsDisable2FAModalPage1" tabindex="-1" style="overflow:auto;" role="dialog"
+  aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog">
+   <div class="modal-content">
+    <div class="modal-header">
+     <h5 class="modal-title">
+      Disable 2-Factor Authentication
+     </h5>
+    </div>
+    <div class="modal-body" align="center">
+
+     <div class="row">
+      <div class="col-sm-12 text-center">
+       <h2> Enter the 6 digit code below</h2>
+      </div>
+      <div class="col-sm-12 text-center">
+       <br>
+       <input type="text" maxlength="6" name="password" class="form-control input-lg authenticationCode authenticationDisableCode"
+        placeholder="000000" autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false" required
+        autofocus>
+      </div>
+     </div>
+
+     <br>
+    </div>
+    <div class="modal-footer">
+     <button type="button" class="btn btn-primary modalProgressButton" id="inputDisableAuthentication"><i class="fa fa-next"></i>Authenticate</button>
+     <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+    </div>
+   </div>
+
+  </div>
+ </div>
+</template>

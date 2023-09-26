@@ -1,0 +1,109 @@
+<template name="associationProfile">
+{{> pageHeading title='Association Details' category='Association Details' parent='Screenings' child='Match Details' removeNumberOfResourceForChild=2}}    
+<br>
+{{#with association}}
+  <div class="row">
+    <div class="col-md-12">
+      <div class="ibox float-e-margins">
+       <div class="ibox" id="ibox1">
+        <div class="ibox-content">
+
+         <div class="sk-spinner sk-spinner-double-bounce">
+          <div class="sk-double-bounce1 "></div>
+          <div class="sk-double-bounce2"></div>
+         </div>
+
+         <span class="pull-right" align="right" style="vertical-align:centre">
+          {{> idDateWidget id=id updated_at=updated_at}}                     
+         </span>
+
+         <h2>Profile</h2>
+       
+         <div class="row">
+          <div class="col-md-7">
+           <br>
+           {{>profileDetails matchProfile=association hasAlternativeName=hasAlternativeName}}
+          </div>
+          <br><br><br><br><br>        
+          <div class="col-md-5" align="center">
+           {{>imageCanvas image_uri=image_uri id='matchCanvas'}}
+          </div>
+          <div class="col-md-12">
+           {{#if note}}
+            <dl class="dl-horizontal">
+             <dt style="font-weight: normal">Notes</dt>
+             <dd>
+              <td>
+                {{note}}
+              </td>
+             </dd>
+            </dl>
+           {{/if}}        
+          </div>
+
+         </div>
+        </div>
+       </div>
+      </div>
+    </div>
+
+    <div class="col-md-12">
+     <div class="ibox float-e-margins">
+      <div class="ibox" id="ibox2">
+       <div class="ibox-content">
+        <div class="sk-spinner sk-spinner-double-bounce">
+         <div class="sk-double-bounce1 "></div>
+         <div class="sk-double-bounce2"></div>
+        </div>
+        <h2>More Info</h2>        
+        <br>
+        <div class="tabs-container">
+         <ul class="nav nav-tabs">
+          <li class="active" style="vertical-align:middle;">
+           <a data-toggle="tab" href="#addressTab">
+            Addresses 
+            &nbsp;
+            <label class="badge badge-default" style="margin-top:3px;">{{countArray addresses}}</label>
+           </a>
+          </li>
+          <li class="">
+           <a data-toggle="tab" href="#documentsTab">
+            Documents
+            &nbsp;
+            <label class="badge badge-default" style="margin-top:3px;">{{countArray documents}}</label>
+           </a>
+          </li>
+          {{#if isEqual association.entity_type 'INDIVIDUAL'}}
+          <li class="">
+           <a data-toggle="tab" href="#occupationsTab">
+            Occupations
+            &nbsp;
+            <label class="badge badge-default" style="margin-top:3px;">{{countArray occupations}}</label>
+           </a>
+          </li>
+          {{/if}}
+          <li class="">
+           <a data-toggle="tab" href="#referencesTab">
+            References
+            &nbsp;
+            <label class="badge badge-default" style="margin-top:3px;">{{countArray references}}</label>
+           </a>
+          </li>               
+         </ul>
+
+         <div class="tab-content">
+          {{> matchAddressTab addresses=addresses}}
+          {{> matchDocumentTab documents=documents}}
+          {{> matchOccupationTab occupations=occupations}}
+          {{> matchReferenceTab references=references}}         
+         </div>         
+       
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+
+  </div>
+ {{/with}}
+</template>

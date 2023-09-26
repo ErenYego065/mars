@@ -1,0 +1,46 @@
+<template name="matchReferenceTab">
+ <div id="referencesTab" class="tab-pane">
+  <br>
+  {{#if references}}  
+   <table class="table table-striped">
+    <thead>
+     <tr>
+      <th>Reference Name</th>
+      <th>Effective Date</th>
+      <th>End Date</th>
+      <th>Status</th>      
+     </tr>
+    </thead>
+    <tbody>
+     {{#each references}}
+      <tr>
+       {{#if name}}<td>{{name}}</td>{{else}}<td align="center">-</td>{{/if}}
+       {{#if from_date}}
+        <td>
+          {{#if from_date.day}} {{from_date.day}} / {{/if}}
+          {{#if from_date.month}} {{monthName from_date.month}} / {{/if}}
+          {{#if from_date.year}} {{from_date.year}} {{/if}}
+        </td>
+       {{else}}
+        <td align="center">-</td>
+       {{/if}}
+       {{#if to_date}}
+        <td>
+          {{#if to_date.day}} {{to_date.day}} / {{/if}}
+          {{#if to_date.month}} {{monthName to_date.month}} / {{/if}}
+          {{#if to_date.year}} {{to_date.year}} {{/if}}
+        </td>
+       {{else}}
+        <td align="center">-</td>        
+       {{/if}}
+       {{#if status}}<td>{{toTitleCase status}}</td>{{else}}<td align="center">-</td>{{/if}}       
+      </tr>
+     {{/each}}
+    </tbody>
+   </table>   
+  {{else}}
+   No references available.
+  {{/if}}
+  
+ </div>  
+</template>

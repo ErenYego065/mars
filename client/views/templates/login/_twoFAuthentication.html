@@ -1,0 +1,30 @@
+<template name="twoFAuthentication">
+ <div class="modal inmodal fade" id="twoFAuthentication" tabindex="-1" style="overflow:auto;" role="dialog" aria-hidden="true"
+  data-backdrop="static">
+  <div class="modal-dialog">
+   <div class="modal-content">
+    <div class="modal-header">
+     <h5 class="modal-title">2-Factor Authentication</h5>
+    </div>
+    <div class="modal-body" align="center">
+     <div class="row">
+      <div class="col-sm-12 text-center">
+       <h2> Enter the 6 digit code below</h2>
+      </div>
+      <div class="col-sm-12 text-center">
+       <br>
+       <input type="text" maxlength="6" name="password" class="form-control input-lg authenticationCode" placeholder="000000"
+        autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false" required autofocus>
+      </div>
+     </div>
+    </div>
+
+    <div class="modal-footer" style="text-align:center;">
+     <button type="submit" style="background-color:#328EEC;color:#fff;margin-top:30px;font-weight:600;" class="ladda-button btn m-b input-lg"
+      id="authenticateCodeButton" data-style="slide-right">Authenticate</button>
+    </div>
+
+   </div>
+  </div>
+ </div>
+</template>
