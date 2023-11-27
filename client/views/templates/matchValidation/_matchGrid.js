@@ -93,40 +93,49 @@ Template.matchGrid.rendered = function(){
 Template.matchGrid.events({
   "click .viewReport": function (event) {
     event.preventDefault();
-    FlowRouter.go('/reports/' + Session.get('screeningDetails').report_id)    
+    if (Session.get('screeningDetails').report_id === undefined ){
+      location.reload();
+    }else{
+      FlowRouter.go('/reports/' + Session.get('screeningDetails').report_id)    
+    }
   },
   
   "click .downloadReport": function (event) {
-    event.preventDefault();
-    activateSpinner();    
-    // let pdfPage = window.open('data:application/pdf;base64,','Hello');
-    // pdfPage.document.title = 'testing';
+        event.preventDefault();
+        activateSpinner();    
+        // let pdfPage = window.open('data:application/pdf;base64,','Hello');
+        // pdfPage.document.title = 'testing';
+        let reportID = Session.get('screeningDetails').report_id;
+        if (reportID === undefined ){
+          location.reload();
+        }
+        else
+        {
+          Meteor.call('getResource', Session.get('isLive'), URI_REPORT_DOWNLOAD, null, null, reportID, function(err, res){
+            if(err) {
+              toastr.error(err.details, err.reason); 
+              deactivateSpinner();      
+            } 
+            else {
+              let name;
+              if(Session.get('customerDetails').type === 'INDIVIDUAL'){
+                name = Session.get('customerDetails').first_name + ' ' + Session.get('customerDetails').last_name;
+              }
+              else{
+                name = Session.get('customerDetails').company_name;
+              }
 
-    let reportID = Session.get('screeningDetails').report_id;
-        Meteor.call('getResource', Session.get('isLive'), URI_REPORT_DOWNLOAD, null, null, reportID, function(err, res){
-          if(err) {
-            toastr.error(err.details, err.reason); 
-            deactivateSpinner();      
-          } 
-          else {
-            let name;
-            if(Session.get('customerDetails').type === 'INDIVIDUAL'){
-              name = Session.get('customerDetails').first_name + ' ' + Session.get('customerDetails').last_name;
-            }
-            else{
-              name = Session.get('customerDetails').company_name;
-            }
-
-            let documentContent = res;
-            // pdfPage.location.href='data:application/pdf;base64,' + documentContent;
-          
-            let dl = document.createElement('a');
-            dl.setAttribute('href', 'data:application/pdf;base64,' + encode(documentContent));
-            dl.setAttribute('download', 'Screening Report - ' + name);
-            dl.click();
-            deactivateSpinner();
-          }       
-        });
+              let documentContent = res;
+              // pdfPage.location.href='data:application/pdf;base64,' + documentContent;
+            
+              let dl = document.createElement('a');
+              dl.setAttribute('href', 'data:application/pdf;base64,' + encode(documentContent));
+              dl.setAttribute('download', 'Screening Report - ' + name);
+              dl.click();
+              deactivateSpinner();
+            }       
+          });
+        }
  },
 
  "click .confirmMatch": function (event) {
